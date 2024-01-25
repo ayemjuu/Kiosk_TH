@@ -1,0 +1,93 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- <div class="container">
+    
+
+    <div id="notificationContainer">
+      <h2>Notification</h2>
+      <p>This is your notification area.</p>
+    </div>
+
+    
+    <div id="registrationModal" class="modal">
+      <form id="registrationForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+
+        <label for="plateNumber">Plate Number:</label>
+        <input type="text" id="plateNumber" required>
+
+        <button type="button" onclick="registerUser()">Register</button>
+      </form>
+    </div>
+
+    <div id="userData"></div>
+
+    <div id="registeredUsersBox">
+      <h2>Registered Users</h2>
+      <ul id="userList"></ul>
+      <button id="showFormButton" onclick="toggleFormVisibility()">Show Registration Form</button>
+    </div>
+
+
+    <div id="historyContainer">
+      <h2>History</h2>
+      <p>This is your history area.</p>
+    </div>
+  </div> -->
+
+  <div class="container">
+
+    <div id="datetimeContainer"></div>
+
+    <div class="side-container" id="notificationContainer">
+      <h2>Notification:</h2>
+      <p>This is your notification area.</p>
+    </div>
+
+    <div class="main-container" id="registeredUsersBox">
+      <h2>Queuing List:</h2>
+      <ul id="userList"></ul>
+     
+
+      <!-- Button to trigger the registration form modal -->
+      <button onclick="openRegistrationForm()">Add</button>
+      <button onclick="removeFirstUser()">Out</button>
+
+      <!-- Registration form modal -->
+      <div id="registrationModal" class="modal">
+        <form id="registrationForm">
+          <label for="name">Name:</label>
+          <input type="text" id="name" required>
+
+          <label for="plateNumber">Plate Number:</label>
+          <input type="text" id="plateNumber" required>
+
+          <button type="button" onclick="registerUser()">Register</button>
+        </form>
+      </div>
+
+      <div id="userData"></div>
+    </div>
+
+    <div class="side-container" id="historyContainer">
+      <h2>History:</h2>
+      <p>This is your history area.</p>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

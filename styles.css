@@ -1,0 +1,135 @@
+
+
+ body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between; /* Align containers horizontally with space between */
+  align-items: stretch; /* Stretch containers to equal height */
+  max-width: 800px; /* Adjust the max-width as needed */
+  width: 80%; /* Adjust the width as needed */
+}
+
+.side-container,
+.main-container {
+  flex: 0 0 30%; /* Distribute available space equally among side and main containers */
+  margin-right: 50px;
+  height: 400px; /* Fixed height for all containers */
+  
+}
+
+.side-container {
+  background-color: #e6e6e6;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.side-container h2 {
+  margin-bottom: 5px;
+}
+
+.side-container p {
+  margin: 0;
+}
+
+.main-container {
+  text-align: center;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+input {
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+button {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+#userData {
+  font-weight: bold;
+}
+
+#registeredUsersBox {
+  background-color: pink;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+#userList {
+  list-style: none;
+  padding: 0;
+}
+
+#userList li {
+  margin: 5px 0;
+}
+
+#notificationContainer {
+  background-color: #e6e6e6;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+#notificationContainer h2 {
+  margin-bottom: 5px;
+}
+
+#notificationContainer p {
+  margin: 0;
+}
+
+#historyContainer {
+  background-color: #e6e6e6;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+#historyContainer h2 {
+  margin-bottom: 5px;
+}
+
+#historyContainer p {
+  margin: 0;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal button {
+  margin-top: 10px;
+}
+
+#datetimeContainer {
+  text-align: right;
+  margin-top: 10px;
+  margin-right: 20px;
+  font-size: 14px;
+  color: #555;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
