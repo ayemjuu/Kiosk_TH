@@ -10,49 +10,29 @@
 </head>
 <body>
 
-  <!-- <div class="container">
-    
-
-    <div id="notificationContainer">
-      <h2>Notification</h2>
-      <p>This is your notification area.</p>
-    </div>
-
-    
-    <div id="registrationModal" class="modal">
-      <form id="registrationForm">
-        <label for="name">Name:</label>
-        <input type="text" id="name" required>
-
-        <label for="plateNumber">Plate Number:</label>
-        <input type="text" id="plateNumber" required>
-
-        <button type="button" onclick="registerUser()">Register</button>
-      </form>
-    </div>
-
-    <div id="userData"></div>
-
-    <div id="registeredUsersBox">
-      <h2>Registered Users</h2>
-      <ul id="userList"></ul>
-      <button id="showFormButton" onclick="toggleFormVisibility()">Show Registration Form</button>
-    </div>
-
-
-    <div id="historyContainer">
-      <h2>History</h2>
-      <p>This is your history area.</p>
-    </div>
-  </div> -->
-
   <div class="container">
 
     <div id="datetimeContainer"></div>
 
     <div class="side-container" id="notificationContainer">
       <h2>Notification:</h2>
-      <p>This is your notification area.</p>
+      
+      
+      <div id="notificationList" class="scrollable-list"></div>
+
+       <!-- Modal Container -->
+      <div id="modalContainer" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <div id="modalData"></div>
+        </div>
+      </div>
+
+
+   
+
+     
+      
     </div>
 
     <div class="main-container" id="registeredUsersBox">

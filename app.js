@@ -362,6 +362,102 @@ function closeRegistrationForm() {
   registrationModal.style.display = 'none';
 }
 
+
+const bookNowCollection = firebase.firestore().collection("BookNow"); // New collection for booked users
+
+// ... Your existing code ...
+
+// Function to handle actions when a plate number is clicked
+function handlePlateNumberClick(bookingData) {
+  // Open the modal
+  openModal();
+
+  // Display data in the modal
+  const modalDataDiv = document.getElementById('modalData');
+  modalDataDiv.innerHTML = `
+    <p>Pickup Point: ${bookingData.pickupPoint}</p>
+    <p>Drop-off Point: ${bookingData.dropOffPoint}</p>
+    <p>Time Requested: ${bookingData.dateTime}</p>
+    <!-- Accept button -->
+    <button onclick="acceptRide()">Accept</button>
+    
+  `;
+}
+
+// Function to accept a ride
+function acceptRide() {
+  // Display a confirmation prompt
+  const isConfirmed = confirm("Do you want to accept this ride?");
+
+  // Check if the user confirmed
+  if (isConfirmed) {
+    // Perform the actions for accepting the ride
+    // ...
+
+    // Close the modal
+    openConfirmationModal();
+  } else {
+    // The user chose not to accept the ride
+    // Additional actions or handling can be added here
+  }
+}
+
+
+
+
+// Function to open the modal
+function openModal() {
+  const modalContainer = document.getElementById('modalContainer');
+  modalContainer.style.display = 'flex';
+}
+
+// Function to close the modal
+function closeModal() {
+  const modalContainer = document.getElementById('modalContainer');
+  modalContainer.style.display = 'none';
+}
+
+// Function to listen for real-time updates in the "BookNow" collection
+function listenForBookNowRealTimeUpdates() {
+  bookNowCollection
+    .orderBy("dateTime", "asc") // Assuming "dateTime" is the field to sort by
+    .onSnapshot((querySnapshot) => {
+      // Clear existing list
+      const notificationList = document.getElementById('notificationList');
+      notificationList.innerHTML = '';
+
+      // Iterate through the documents in the "BookNow" collection
+      querySnapshot.forEach((doc) => {
+        const bookingData = doc.data();
+        const plateNumber = bookingData.plateNumber;
+
+        // Create a clickable list item for each plate number
+        const listItem = document.createElement('div');
+        listItem.textContent = 'You have a ride request!';
+        listItem.classList.add('clickable-item');
+
+        // Add a click event to each list item
+        listItem.addEventListener('click', () => {
+          // Call the function to handle the click
+          handlePlateNumberClick(bookingData);
+        });
+
+        // Append the list item to the notification list
+        notificationList.appendChild(listItem);
+      });
+    });
+}
+
+
+
+
+// Call the function to start listening for real-time updates in "BookNow"
+listenForBookNowRealTimeUpdates();
+
+
+
+
+
 // Update date and time initially
 updateDateTime();
 
