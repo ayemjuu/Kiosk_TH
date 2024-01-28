@@ -1,180 +1,24 @@
 
 
 
-
-
-
-
-
-
-
-// // Initialize Firebase with your configuration
-// const firebaseConfig = {
-//   apiKey: "AIzaSyDDvAh_6tTStzjm6KhNNYhGV_IqeuRhE0I",
-//   authDomain: "toooda-eab14.firebaseapp.com",
-//   projectId: "toooda-eab14",
-//   storageBucket: "toooda-eab14.appspot.com",
-//   messagingSenderId: "518146176082",
-//   appId: "1:518146176082:web:226ef0b25bc08dc28b5b8b"
-// };
-
-// firebase.initializeApp(firebaseConfig);
-
-// // Get a reference to the Firestore database
-// const db = firebase.firestore();
-
-// // Array to store registered users
-// const registeredUsers = [];
-
-// // Function to update date and time dynamically
-// function updateDateTime() {
-//   const datetimeContainer = document.getElementById('datetimeContainer');
-//   const currentDate = new Date();
-//   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'short' };
-//   const formattedDateTime = currentDate.toLocaleDateString('en-US', options);
-//   datetimeContainer.textContent = formattedDateTime;
-// }
-
-// function registerUser() {
-//   const nameInput = document.getElementById('name');
-//   const plateNumberInput = document.getElementById('plateNumber');
-
-//   const name = nameInput.value;
-//   const plateNumber = plateNumberInput.value;
-
-//   // Display user data on the screen
-//   const userDataDiv = document.getElementById('userData');
-//   userDataDiv.innerHTML = `Name: ${name}<br>Plate Number: ${plateNumber}`;
-
-//   // Save user data to the "Toda" collection in Firestore
-//   saveUserDataToFirestore(name, plateNumber);
-
-//   // Clear the text below the registration form
-//   userDataDiv.innerHTML = '';
-
-//   // Add user to the array and update the UI
-//   registeredUsers.push({ name, plateNumber });
-//   updateUI();
-
-//   // Reset input fields
-//   nameInput.value = '';
-//   plateNumberInput.value = '';
-
-//   // Close the registration form modal
-//   closeRegistrationForm();
-// }
-
-// function saveUserDataToFirestore(name, plateNumber) {
-//   // Get the current date and time
-//   const currentDate = new Date();
-
-//   // Add a new document with a generated ID to the "Toda" collection
-//   db.collection("Toda").add({
-//     name: name,
-//     plateNumber: plateNumber,
-//     registrationDateTime: currentDate
-//   })
-//   .then((docRef) => {
-//     console.log("Document written with ID: ", docRef.id);
-//   })
-//   .catch((error) => {
-//     console.error("Error adding document: ", error);
-//   });
-// }
-
-
-
-// function removeFirstUser() {
-//   // Check if there are users in the list
-//   if (registeredUsers.length > 0) {
-//     // Remove the first user from the array
-//     const removedUser = registeredUsers.shift();
-
-//     // Update the UI to reflect the removal
-//     updateUI();
-
-//     // Save the removal date and time to Firestore
-//     saveRemovalDataToFirestore(removedUser);
-
-//     // Optionally, you can perform additional actions with the removed user data
-//     console.log(`Removed user: ${removedUser.name} - ${removedUser.plateNumber}`);
-//   } else {
-//     // Handle the case when there are no users to remove
-//     console.log("No users to remove");
-//   }
-// }
-
-// function saveRemovalDataToFirestore(removedUser) {
-//   // Get the current date and time
-//   const currentDate = new Date();
-
-//   // Update the existing document in the "Toda" collection
-//   db.collection("Toda").where("name", "==", removedUser.name)
-//     .where("plateNumber", "==", removedUser.plateNumber)
-//     .get()
-//     .then((querySnapshot) => {
-//       querySnapshot.forEach((doc) => {
-//         // Update the document with removal date and time
-//         return doc.ref.update({
-//           removalDateTime: currentDate
-//         })
-//         .then(() => {
-//           console.log("Removal data updated successfully");
-//         })
-//         .catch((error) => {
-//           console.error("Error updating removal data: ", error);
-//         });
-//       });
-//     })
-//     .catch((error) => {
-//       console.error("Error getting document: ", error);
-//     });
-// }
-
-
-// function updateUI() {
-//   const userList = document.getElementById('userList');
-//   userList.innerHTML = ''; // Clear existing list
-
-//   // Populate the list with registered users
-//   registeredUsers.forEach(user => {
-//     const listItem = document.createElement('li');
-//     listItem.textContent = `Name: ${user.name}, Plate Number: ${user.plateNumber}`;
-//     userList.appendChild(listItem);
-//   });
-// }
-
-// function toggleFormVisibility() {
-//   const registrationModal = document.getElementById('registrationModal');
-//   registrationModal.style.display = (registrationModal.style.display === 'none' || registrationModal.style.display === '') ? 'block' : 'none';
-// }
-
-// function openRegistrationForm() {
-//   const registrationModal = document.getElementById('registrationModal');
-//   registrationModal.style.display = 'block';
-// }
-
-// function closeRegistrationForm() {
-//   const registrationModal = document.getElementById('registrationModal');
-//   registrationModal.style.display = 'none';
-// }
-
-// // Update date and time initially
-// updateDateTime();
-
-// // Update date and time every second
-// setInterval(updateDateTime, 1000);
-
-
-
 // Initialize Firebase with your configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDDvAh_6tTStzjm6KhNNYhGV_IqeuRhE0I",
-  authDomain: "toooda-eab14.firebaseapp.com",
-  projectId: "toooda-eab14",
-  storageBucket: "toooda-eab14.appspot.com",
-  messagingSenderId: "518146176082",
-  appId: "1:518146176082:web:226ef0b25bc08dc28b5b8b"
+  //kylevincentmanuel@gmail.com
+  // apiKey: "AIzaSyDDvAh_6tTStzjm6KhNNYhGV_IqeuRhE0I",
+  // authDomain: "toooda-eab14.firebaseapp.com",
+  // projectId: "toooda-eab14",
+  // storageBucket: "toooda-eab14.appspot.com",
+  // messagingSenderId: "518146176082",
+  // appId: "1:518146176082:web:226ef0b25bc08dc28b5b8b"
+
+  //sa kaijuuuuu10@gmail.com
+  apiKey: "AIzaSyAsg1oW1wpZXUcZo0UcFZ57qYWBAJHfasY",
+  authDomain: "todahero-4e7c0.firebaseapp.com",
+  projectId: "todahero-4e7c0",
+  storageBucket: "todahero-4e7c0.appspot.com",
+  messagingSenderId: "617421997910",
+  appId: "1:617421997910:web:aca4e6fc791b36393d38f7",
+  measurementId: "G-B2P699P8YS"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -264,6 +108,8 @@ function saveActiveUserDataToFirestore(name, plateNumber) {
 }
 
 function removeFirstUser() {
+
+  console.log("Before removal - registeredUsers:", registeredUsers);
   // Check if there are users in the list
   if (registeredUsers.length > 0) {
     // Remove the first user from the array
@@ -279,10 +125,22 @@ function removeFirstUser() {
     removeUserFromActiveUsers(removedUser);
 
     // Optionally, you can perform additional actions with the removed user data
-    console.log(`Removed user: ${removedUser.name} - ${removedUser.plateNumber}`);
+    // console.log(`Removed user: ${removedUser.name} - Removed plateNumber ${removedUser.plateNumber}`);
+
+
+
+    // Return the removed user object
+    return removedUser;
+
+
   } else {
     // Handle the case when there are no users to remove
     console.log("No users to remove");
+    // console.log("After removal - registeredUsers:", registeredUsers);
+
+
+       // Return null if no users are removed
+    return null;
   }
 }
 
@@ -365,42 +223,229 @@ function closeRegistrationForm() {
 
 const bookNowCollection = firebase.firestore().collection("BookNow"); // New collection for booked users
 
-// ... Your existing code ...
 
+
+
+//START
 // Function to handle actions when a plate number is clicked
-function handlePlateNumberClick(bookingData) {
+function handlePlateNumberClick(bookingData, userName, bookingDocId) {
   // Open the modal
   openModal();
 
   // Display data in the modal
   const modalDataDiv = document.getElementById('modalData');
+
+  // Convert Firestore timestamp to JavaScript Date object
+  const timestamp = bookingData.dateTime;
+  const dateObject = timestamp.toDate();
+
+  // Format date and time
+  const formattedDateTime = dateObject.toLocaleString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    timeZoneName: 'short'
+  });
+
   modalDataDiv.innerHTML = `
-    <p>Pickup Point: ${bookingData.pickupPoint}</p>
-    <p>Drop-off Point: ${bookingData.dropOffPoint}</p>
-    <p>Time Requested: ${bookingData.dateTime}</p>
-    <!-- Accept button -->
-    <button onclick="acceptRide()">Accept</button>
-    
-  `;
+
+  <p id="pickupPoint">Pickup Point: ${bookingData.pickupPoint}</p>
+  <p id="dropOffPoint">Drop-off Point: ${bookingData.dropOffPoint}</p>
+  <p id="dateTime">Time Requested: ${formattedDateTime}</p>
+  <p id="userName">User: ${userName}</p> <!-- Display user's name -->
+  <p id="userContactNumber">Contact Number: ${bookingData.userContactNumber}</p>
+  <!-- Accept button -->
+  <button onclick="acceptRide('${bookingData.pickupPoint}', '${bookingData.dropOffPoint}', '${formattedDateTime}', '${userName}', '${bookingData.userContactNumber}', '${bookingDocId}')">Accept (fingerprint)</button>
+`;
+
+
+ 
+}
+///END     
+      {/* <p>Pickup Point: ${bookingData.pickupPoint}</p>
+      <p>Drop-off Point: ${bookingData.dropOffPoint}</p>
+      <p>Time Requested: ${formattedDateTime}</p>
+      <p>User: ${userName}</p> <!-- Display user's name -->
+      <!-- Accept button -->
+      <button onclick="acceptRide()">Accept</button>
+      `; */}
+
+
+  // Function to save accepted request time to Firestore
+  function saveAcceptedRequestTimeToFirestore() {
+    // Get the current date and time
+    const currentDate = new Date();
+
+    // Save the current date and time to the "acceptedRequest" collection
+    firebase.firestore().collection("acceptedRequest").add({
+      acceptedDateTime: currentDate
+    })
+    .then((docRef) => {
+      console.log("Accepted request time saved to Firestore with ID: ", docRef.id);
+    })
+    .catch((error) => {
+      console.error("Error saving accepted request time to Firestore: ", error);
+    });
+  }
+
+
+
+
+  //para sa notification na mareremoved once maclicked yung "ok" sa modal
+  function removeNotification() {
+  // Get the notification list
+  const notificationList = document.getElementById('notificationList');
+
+  // Remove the first child (the clicked notification) from the list
+  notificationList.removeChild(notificationList.firstChild);
 }
 
-// Function to accept a ride
-function acceptRide() {
+
+
+
+//   // Function to accept a ride
+  function acceptRide(pickupPoint, dropOffPoint, dateTime, userName, userContactNumber, bookingDocId) {
   // Display a confirmation prompt
-  const isConfirmed = confirm("Do you want to accept this ride?");
+  const isConfirmed = confirm("Do you want to accept this ride?\n Kunyare fingerprint cerification 'to...");
 
   // Check if the user confirmed
   if (isConfirmed) {
-    // Perform the actions for accepting the ride
-    // ...
+
+  // Remove the corresponding document from the "BookNow" collection
+  removeBookingFromBookNowCollection(bookingDocId);
+   
+
+    // Log the data to the console
+    console.log("Accepted Ride Data:");
+    console.log("Pickup Point:", pickupPoint);
+    console.log("Drop-off Point:", dropOffPoint);
+    console.log("Date and Time:", dateTime);
+    console.log("User Name:", userName);
+    console.log("User Contact Number:", userContactNumber);
+
+   
+  
+
+  
+    
+
+
+    // saveAcceptedRequestToFirestore({
+    //   pickupPoint: pickupPoint,
+    //   dropOffPoint: dropOffPoint,
+    //   dateTime: dateTime,
+    //   userName: userName,
+    //   userContactNumber: userContactNumber,
+      
+    // });
+
+
+      
+
+        // // Save the time when the user clicked "OK" to the "acceptedRequest" collection
+        // saveAcceptedRequestTimeToFirestore();
+
+      //  // Call the function to remove the first user
+      //  removeFirstUser();
+
+        //  // Call the function to remove the first user and log the removed user's details
+        //  const removedUser = removeFirstUser();
+        //  if (removedUser) {
+        //      console.log("User Removed from Queuing List:");
+        //      console.log("Name:", removedUser.name);
+        //      console.log("Plate Number:", removedUser.plateNumber);
+        //  }
+     
+
+         // Call the function to remove the first user
+    const removedUser = removeFirstUser();
+    if (removedUser) {
+      console.log("User Removed from Queuing List:");
+      console.log("Name:", removedUser.name);
+      console.log("Plate Number:", removedUser.plateNumber);
+
+      // Call the function to save accepted request to Firestore
+      saveAcceptedRequestToFirestore({
+        pickupPoint: pickupPoint,
+        dropOffPoint: dropOffPoint,
+        dateTime: dateTime,
+        userName: userName,
+        userContactNumber: userContactNumber
+      }, removedUser);
+
+        
+
+  }  
+  
+
+       // Close the modal
+       closeModal();
+
+         // Remove the clicked notification from the list
+         removeNotification();
 
     // Close the modal
-    openConfirmationModal();
+    // openConfirmationModal();
   } else {
     // The user chose not to accept the ride
     // Additional actions or handling can be added here
   }
 }
+
+
+
+
+// Function to remove the booking from the "BookNow" collection
+function removeBookingFromBookNowCollection(bookingDocId) {
+  // Get a reference to the "BookNow" collection and delete the document
+  bookNowCollection.doc(bookingDocId).delete()
+    .then(() => {
+      console.log("Document deleted from BookNow collection");
+    })
+    .catch((error) => {
+      console.error("Error deleting document from BookNow collection: ", error);
+    });
+}
+
+
+
+function saveAcceptedRequestToFirestore(acceptedRideData, removedUserData) {
+  // Get the current date and time
+  const currentDate = new Date();
+
+  // Log the acceptedRideData object for debugging
+  console.log("Accepted Ride Data:", acceptedRideData);
+
+
+
+  // Save the current date and time along with accepted ride data to the "acceptedRequest" collection
+  firebase.firestore().collection("acceptedRequest").add({
+    timeAccecpted: currentDate,
+    pickupPoint: acceptedRideData.pickupPoint,
+    dropOffPoint: acceptedRideData.dropOffPoint,
+    timeRequested: acceptedRideData.dateTime,
+    requestBy: acceptedRideData.userName,
+    requestByContactNumber: acceptedRideData.userContactNumber,
+
+    driverName: removedUserData.name,
+    driverPlateNumber: removedUserData.plateNumber
+   
+
+   
+    
+  })
+  .then((docRef) => {
+    console.log("Accepted request and data saved to Firestore with ID: ", docRef.id);
+  })
+  .catch((error) => {
+    console.error("Error saving accepted request and data to Firestore: ", error);
+  });
+}
+
 
 
 
@@ -415,6 +460,11 @@ function openModal() {
 function closeModal() {
   const modalContainer = document.getElementById('modalContainer');
   modalContainer.style.display = 'none';
+
+  
+  var modal = document.getElementById("registrationModal");
+  modal.style.display = "none";
+
 }
 
 // Function to listen for real-time updates in the "BookNow" collection
@@ -429,7 +479,9 @@ function listenForBookNowRealTimeUpdates() {
       // Iterate through the documents in the "BookNow" collection
       querySnapshot.forEach((doc) => {
         const bookingData = doc.data();
-        const plateNumber = bookingData.plateNumber;
+        
+        // Extract user's name from booking data
+        const userName = bookingData.userName;
 
         // Create a clickable list item for each plate number
         const listItem = document.createElement('div');
@@ -439,7 +491,7 @@ function listenForBookNowRealTimeUpdates() {
         // Add a click event to each list item
         listItem.addEventListener('click', () => {
           // Call the function to handle the click
-          handlePlateNumberClick(bookingData);
+          handlePlateNumberClick(bookingData, userName, doc.id); //docid
         });
 
         // Append the list item to the notification list
@@ -464,12 +516,38 @@ updateDateTime();
 // Update date and time every second
 setInterval(updateDateTime, 1000);
 
-// Add a function to listen for real-time updates in the "ActiveUsers" collection
+
+
+// Function to listen for real-time updates in the "ActiveUsers" collection
 function listenForActiveUsersRealTimeUpdates() {
-  activeUsersCollection.onSnapshot((querySnapshot) => {
-    // Handle real-time updates for active users
-    // You can update UI or perform other actions as needed
-  });
+  activeUsersCollection
+    .orderBy("registrationDateTime", "asc")  // or "desc" for descending order
+    .onSnapshot((querySnapshot) => {
+      // Clear existing list
+      const activeUsersList = document.getElementById('userList');
+      activeUsersList.innerHTML = '';
+
+       // Clear the registeredUsers array
+       registeredUsers.length = 0;
+
+      // Iterate through the documents in the "ActiveUsers" collection
+      querySnapshot.forEach((doc) => {
+        const userData = doc.data();
+        const name = userData.name;
+        const plateNumber = userData.plateNumber;
+
+        // Update the UI or perform other actions with the real-time data
+        const listItem = document.createElement('li');
+        listItem.textContent = `Name: ${name}, Plate Number: ${plateNumber}`;
+        activeUsersList.appendChild(listItem);
+
+         // Update the registeredUsers array
+         registeredUsers.push({ name, plateNumber });
+      });
+
+        // Update the UI with the latest data
+        updateUI();
+    });
 }
 
 // Call the function to start listening for real-time updates in "ActiveUsers"

@@ -38,15 +38,18 @@
     <div class="main-container" id="registeredUsersBox">
       <h2>Queuing List:</h2>
       <ul id="userList"></ul>
-     
 
+      
       <!-- Button to trigger the registration form modal -->
-      <button onclick="openRegistrationForm()">Add</button>
-      <button onclick="removeFirstUser()">Out</button>
+      <button onclick="openRegistrationForm()">Add ,isipin mo fingerprint 'to</button>
+      <button onclick="removeFirstUser()">Out muna ako </button>
 
       <!-- Registration form modal -->
       <div id="registrationModal" class="modal">
         <form id="registrationForm">
+
+          <span class="close" onclick="closeModal()">&times;</span> <!-- Close button represented by 'X' -->
+
           <label for="name">Name:</label>
           <input type="text" id="name" required>
 
@@ -54,6 +57,7 @@
           <input type="text" id="plateNumber" required>
 
           <button type="button" onclick="registerUser()">Register</button>
+          <p>Then automatic 'to after malagay fingerprint</p>
         </form>
       </div>
 
