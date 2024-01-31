@@ -248,7 +248,7 @@ function handlePlateNumberClick(bookingData, userName, bookingDocId) {
     hour: 'numeric',
     minute: 'numeric',
     second: 'numeric',
-    timeZoneName: 'short'
+    // timeZoneName: 'short'
   });
 
   modalDataDiv.innerHTML = `
@@ -417,6 +417,18 @@ function saveAcceptedRequestToFirestore(acceptedRideData, removedUserData) {
   // Get the current date and time
   const currentDate = new Date();
 
+    // Format the current date and time for `timeAccepted`
+    // const formattedCurrentDateTime = currentDate.toLocaleString('en-US', {
+    //   weekday: 'long',
+    //   year: 'numeric',
+    //   month: 'long',
+    //   day: 'numeric',
+    //   hour: 'numeric',
+    //   minute: 'numeric',
+    //   second: 'numeric',
+    //   // timeZoneName: 'short'
+    // });
+
   // Log the acceptedRideData object for debugging
   console.log("Accepted Ride Data:", acceptedRideData);
 
@@ -424,7 +436,8 @@ function saveAcceptedRequestToFirestore(acceptedRideData, removedUserData) {
 
   // Save the current date and time along with accepted ride data to the "acceptedRequest" collection
   firebase.firestore().collection("acceptedRequest").add({
-    timeAccecpted: currentDate,
+    // timeAccepted: formattedCurrentDateTime,
+    timeAccepted: firebase.firestore.Timestamp.fromDate(currentDate),
     pickupPoint: acceptedRideData.pickupPoint,
     dropOffPoint: acceptedRideData.dropOffPoint,
     timeRequested: acceptedRideData.dateTime,
@@ -468,6 +481,38 @@ function closeModal() {
 }
 
 // Function to listen for real-time updates in the "BookNow" collection
+// function listenForBookNowRealTimeUpdates() {
+//   bookNowCollection
+//     .orderBy("dateTime", "asc") // Assuming "dateTime" is the field to sort by
+//     .onSnapshot((querySnapshot) => {
+//       // Clear existing list
+//       const notificationList = document.getElementById('notificationList');
+//       notificationList.innerHTML = '';
+
+//       // Iterate through the documents in the "BookNow" collection
+//       querySnapshot.forEach((doc) => {
+//         const bookingData = doc.data();
+        
+//         // Extract user's name from booking data
+//         const userName = bookingData.userName;
+
+//         // Create a clickable list item for each plate number
+//         const listItem = document.createElement('div');
+//         listItem.textContent = 'You have a ride request!';
+//         listItem.classList.add('clickable-item');
+
+//         // Add a click event to each list item
+//         listItem.addEventListener('click', () => {
+//           // Call the function to handle the click
+//           handlePlateNumberClick(bookingData, userName, doc.id); //docid
+//         });
+
+//         // Append the list item to the notification list
+//         notificationList.appendChild(listItem);
+//       });
+//     });
+// }
+
 function listenForBookNowRealTimeUpdates() {
   bookNowCollection
     .orderBy("dateTime", "asc") // Assuming "dateTime" is the field to sort by
@@ -476,31 +521,33 @@ function listenForBookNowRealTimeUpdates() {
       const notificationList = document.getElementById('notificationList');
       notificationList.innerHTML = '';
 
+      let isFirstItem = true; // Flag to track if it's the first item
+
       // Iterate through the documents in the "BookNow" collection
-      querySnapshot.forEach((doc) => {
+      querySnapshot.forEach((doc, index) => {
         const bookingData = doc.data();
         
         // Extract user's name from booking data
         const userName = bookingData.userName;
 
-        // Create a clickable list item for each plate number
+        // Create a list item for each plate number
         const listItem = document.createElement('div');
         listItem.textContent = 'You have a ride request!';
         listItem.classList.add('clickable-item');
 
-        // Add a click event to each list item
-        listItem.addEventListener('click', () => {
-          // Call the function to handle the click
-          handlePlateNumberClick(bookingData, userName, doc.id); //docid
-        });
+        // Add a click event only to the first item
+        if (isFirstItem) {
+          listItem.addEventListener('click', () => {
+            handlePlateNumberClick(bookingData, userName, doc.id); //docid
+          });
+          isFirstItem = false; // Reset flag after attaching click event
+        }
 
         // Append the list item to the notification list
         notificationList.appendChild(listItem);
       });
     });
 }
-
-
 
 
 // Call the function to start listening for real-time updates in "BookNow"

@@ -78,7 +78,7 @@ button {
 }
 
 #notificationContainer {
-  background-color: #e6e6e6;
+  background-color: pink;
   padding: 10px;
   border-radius: 8px;
   text-align: center;
@@ -93,7 +93,7 @@ button {
 }
 
 #historyContainer {
-  background-color: #e6e6e6;
+  background-color: pink;
   padding: 10px;
   border-radius: 8px;
   text-align: center;
