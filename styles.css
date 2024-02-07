@@ -30,6 +30,7 @@
   padding: 10px;
   border-radius: 8px;
   text-align: center;
+ 
 }
 
 .side-container h2 {
@@ -98,6 +99,47 @@ button {
   border-radius: 8px;
   text-align: center;
 }
+/* CSS styles for history item */
+#historyContainer li {
+  list-style-type: none;
+  padding: 5px 0;
+  border-bottom: 1px solid #ccc;
+ background-color: white;
+ margin-bottom: 5px;
+ height: 30px;
+ text-align: center ;
+ 
+ display: flex;
+ justify-content: center;
+ align-items: center;
+
+ cursor: pointer;
+transition: background-color 0.3s ease;
+
+border-radius: 5px;
+
+ 
+}
+
+#historyContainer li:hover {
+  background-color: #b3c6db;
+}
+
+.history-content {
+  margin-bottom: 10px; /* Add margin to separate from the list */
+}
+
+#historyList {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto; /* Center the list horizontally */
+  /* width: 220px;  */
+  
+  overflow-y: auto; /* Add vertical scrollbar if content exceeds the maximum height */
+
+}
+
+
 
 #historyContainer h2 {
   margin-bottom: 5px;
@@ -105,6 +147,33 @@ button {
 
 #historyContainer p {
   margin: 0;
+}
+
+
+/* SA SCROLLABLE LIST */
+
+.scrollable-list-container {
+  max-height: 300px; /* Adjust the maximum height as needed */
+  overflow-y: auto; /* Enable vertical scrollbar if the content exceeds the container height */
+}
+
+.history-list li {
+  padding: 10px; /* Add padding to each history item */
+  border-bottom: 1px solid #eee; /* Add bottom border to separate items */
+}
+
+.history-list li:last-child {
+  border-bottom: none; /* Remove bottom border for the last item */
+}
+
+
+
+
+
+#modalContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal {

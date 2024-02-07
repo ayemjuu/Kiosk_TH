@@ -12,13 +12,21 @@ const firebaseConfig = {
   // appId: "1:518146176082:web:226ef0b25bc08dc28b5b8b"
 
   //sa kaijuuuuu10@gmail.com
-  apiKey: "AIzaSyAsg1oW1wpZXUcZo0UcFZ57qYWBAJHfasY",
-  authDomain: "todahero-4e7c0.firebaseapp.com",
-  projectId: "todahero-4e7c0",
-  storageBucket: "todahero-4e7c0.appspot.com",
-  messagingSenderId: "617421997910",
-  appId: "1:617421997910:web:aca4e6fc791b36393d38f7",
-  measurementId: "G-B2P699P8YS"
+  // apiKey: "AIzaSyAsg1oW1wpZXUcZo0UcFZ57qYWBAJHfasY",
+  // authDomain: "todahero-4e7c0.firebaseapp.com",
+  // projectId: "todahero-4e7c0",
+  // storageBucket: "todahero-4e7c0.appspot.com",
+  // messagingSenderId: "617421997910",
+  // appId: "1:617421997910:web:aca4e6fc791b36393d38f7",
+  // measurementId: "G-B2P699P8YS"
+
+  apiKey: "AIzaSyDjBboCs4iqBnogiInGpHcVvCEDBGokiLU",
+  authDomain: "thero-28f02.firebaseapp.com",
+  projectId: "thero-28f02",
+  storageBucket: "thero-28f02.appspot.com",
+  messagingSenderId: "394557839181",
+  appId: "1:394557839181:web:53a1bf1d15264d3ab74904",
+  measurementId: "G-MB5NB4LDS3"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -601,6 +609,89 @@ function listenForActiveUsersRealTimeUpdates() {
 listenForActiveUsersRealTimeUpdates();
 
 
+// Function to listen for real-time updates in the "history" collection for rides that ended today
+function listenForTodayHistoryRealTimeUpdates() {
+  const historyCollection = firebase.firestore().collection("history");
+  
+  // Get the start and end of today
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const endOfToday = new Date(today);
+  endOfToday.setDate(endOfToday.getDate() + 1);
 
+  // Query documents where rideEndedAt is within today's date range
+  const query = historyCollection.where("rideEnded", ">=", today).where("rideEnded", "<", endOfToday)
+  .orderBy("rideEnded", "desc");
 
+  query.onSnapshot((querySnapshot) => {
+    // Clear existing history list
+    const historyList = document.getElementById('historyList');
+    historyList.innerHTML = '';
 
+    // Iterate through the documents in the "history" collection for today
+    querySnapshot.forEach((doc) => {
+      // Get the ID and data of each document
+      const historyId = doc.id;
+      const historyData = doc.data();
+
+      // Create a list item for each history item
+      const historyItem = document.createElement('li');
+      // historyItem.textContent = `History ID: ${historyId}`;
+      historyItem.textContent = `History`;
+
+      // Add a click event listener to each history item
+      historyItem.addEventListener('click', () => {
+        // Call a function to handle the click event and display the modal
+        displayHistoryModal(historyData);
+      });
+
+      // Append the history item to the history list
+      historyList.appendChild(historyItem);
+    });
+  });
+}
+
+// Function to display a modal with history details
+function displayHistoryModal(historyData) {
+  // Access all the relevant data from the history object
+  const {
+    driverName,
+    driverPlateNumber,
+    dropOffPoint,
+    pickupPoint,
+    requestBy,
+    requestByContactNumber,
+    rideEnded,
+    timeAccepted,
+    timeRequested
+  } = historyData;
+
+  // Format the timestamp fields for better readability
+  const formattedRideEnded = rideEnded ? new Date(rideEnded.toDate()).toLocaleString() : '';
+  const formattedTimeAccepted = timeAccepted ? new Date(timeAccepted.toDate()).toLocaleString() : '';
+  const formattedTimeRequested = timeRequested ? timeRequested : '';
+
+  // Update the content of the modal with the history details
+  const modalDataDiv = document.getElementById('modalData');
+  modalDataDiv.innerHTML = `
+    <p> Ride Details: </p>
+    <p>Driver Name: ${driverName}</p>
+    <p>Driver Plate Number: ${driverPlateNumber}</p>
+    <p>Pickup Point: ${pickupPoint}</p>
+    <p>Drop-off Point: ${dropOffPoint}</p>
+    <p>Requested By: ${requestBy}</p>
+    
+    <p>Ride Ended: ${formattedRideEnded}</p>
+    
+    <!-- Add more details here as needed -->
+  `;
+
+  //<p>Contact Number: ${requestByContactNumber}</p>
+  //<p>Time Accepted: ${formattedTimeAccepted}</p>
+  //<p>Time Requested: ${formattedTimeRequested}</p>
+  // Display the modal
+  openModal();
+}
+
+// Call the function to start listening for real-time updates in "history" for rides that ended today only
+listenForTodayHistoryRealTimeUpdates();
