@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+    <link rel="stylesheet" href="try.css">
+</head>
+<body>
+    <div id="video-container">
+        <video id="video" playsinline></video>
+    </div>
+    <div id="controls" style="text-align: center; margin-top: 10px;">
+        <button id="startBtn">Start Camera</button>
+        <button id="stopBtn" style="display: none;">Stop Camera</button>
+        <input type="file" id="qrFileInput" accept="image/*">
+       
+        <button id="doneBtn">Done</button> 
+    </div>
+    <div id="result"></div>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.0.0/dist/jsQR.min.js"></script>
+    <script src="try.js"></script>
+</body>
+</html>

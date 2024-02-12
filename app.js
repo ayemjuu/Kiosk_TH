@@ -1,6 +1,4 @@
 
-
-
 // Initialize Firebase with your configuration
 const firebaseConfig = {
   //kylevincentmanuel@gmail.com
@@ -135,8 +133,6 @@ function removeFirstUser() {
     // Optionally, you can perform additional actions with the removed user data
     // console.log(`Removed user: ${removedUser.name} - Removed plateNumber ${removedUser.plateNumber}`);
 
-
-
     // Return the removed user object
     return removedUser;
 
@@ -264,8 +260,6 @@ function handlePlateNumberClick(bookingData, userName, bookingDocId) {
   <p id="pickupPoint">Pickup Point: ${bookingData.pickupPoint}</p>
   <p id="dropOffPoint">Drop-off Point: ${bookingData.dropOffPoint}</p>
   <p id="dateTime">Time Requested: ${formattedDateTime}</p>
-  <p id="userName">User: ${userName}</p> <!-- Display user's name -->
-  <p id="userContactNumber">Contact Number: ${bookingData.userContactNumber}</p>
   <!-- Accept button -->
   <button onclick="acceptRide('${bookingData.pickupPoint}', '${bookingData.dropOffPoint}', '${formattedDateTime}', '${userName}', '${bookingData.userContactNumber}', '${bookingDocId}')">Accept (fingerprint)</button>
 `;
@@ -273,6 +267,11 @@ function handlePlateNumberClick(bookingData, userName, bookingDocId) {
 
  
 }
+
+{/* <p id="userName">User: ${userName}</p> <!-- Display user's name --> */}
+{/* <p id="userContactNumber">Contact Number: ${bookingData.userContactNumber}</p> */}
+
+
 ///END     
       {/* <p>Pickup Point: ${bookingData.pickupPoint}</p>
       <p>Drop-off Point: ${bookingData.dropOffPoint}</p>
@@ -336,11 +335,6 @@ function handlePlateNumberClick(bookingData, userName, bookingDocId) {
     console.log("User Contact Number:", userContactNumber);
 
    
-  
-
-  
-    
-
 
     // saveAcceptedRequestToFirestore({
     //   pickupPoint: pickupPoint,
@@ -488,38 +482,6 @@ function closeModal() {
 
 }
 
-// Function to listen for real-time updates in the "BookNow" collection
-// function listenForBookNowRealTimeUpdates() {
-//   bookNowCollection
-//     .orderBy("dateTime", "asc") // Assuming "dateTime" is the field to sort by
-//     .onSnapshot((querySnapshot) => {
-//       // Clear existing list
-//       const notificationList = document.getElementById('notificationList');
-//       notificationList.innerHTML = '';
-
-//       // Iterate through the documents in the "BookNow" collection
-//       querySnapshot.forEach((doc) => {
-//         const bookingData = doc.data();
-        
-//         // Extract user's name from booking data
-//         const userName = bookingData.userName;
-
-//         // Create a clickable list item for each plate number
-//         const listItem = document.createElement('div');
-//         listItem.textContent = 'You have a ride request!';
-//         listItem.classList.add('clickable-item');
-
-//         // Add a click event to each list item
-//         listItem.addEventListener('click', () => {
-//           // Call the function to handle the click
-//           handlePlateNumberClick(bookingData, userName, doc.id); //docid
-//         });
-
-//         // Append the list item to the notification list
-//         notificationList.appendChild(listItem);
-//       });
-//     });
-// }
 
 function listenForBookNowRealTimeUpdates() {
   bookNowCollection
@@ -679,7 +641,7 @@ function displayHistoryModal(historyData) {
     <p>Driver Plate Number: ${driverPlateNumber}</p>
     <p>Pickup Point: ${pickupPoint}</p>
     <p>Drop-off Point: ${dropOffPoint}</p>
-    <p>Requested By: ${requestBy}</p>
+   
     
     <p>Ride Ended: ${formattedRideEnded}</p>
     
@@ -689,9 +651,321 @@ function displayHistoryModal(historyData) {
   //<p>Contact Number: ${requestByContactNumber}</p>
   //<p>Time Accepted: ${formattedTimeAccepted}</p>
   //<p>Time Requested: ${formattedTimeRequested}</p>
+  // <p>Requested By: ${requestBy}</p>
   // Display the modal
   openModal();
 }
 
 // Call the function to start listening for real-time updates in "history" for rides that ended today only
 listenForTodayHistoryRealTimeUpdates();
+
+
+
+//qr code
+
+const video = document.getElementById('video');
+let stream = null;
+
+document.getElementById('startBtn').addEventListener('click', startCamera);
+document.getElementById('stopBtn').addEventListener('click', stopCamera);
+document.getElementById('qrFileInput').addEventListener('change', loadQRFile);
+
+// Existing event listeners are assumed to be present in script.js
+
+document.getElementById('doneBtn').addEventListener('click', removeFile);
+
+
+function startCamera() {
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+        .then(str => {
+            stream = str;
+            video.srcObject = stream;
+            video.play();
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('stopBtn').style.display = 'inline-block';
+            document.getElementById('qrFileInput').value = '';
+        
+            
+            scanQRCode();
+        })
+        .catch(err => console.error('getUserMedia error:', err));
+}
+
+function stopCamera() {
+    if (stream) {
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop());
+        video.srcObject = null;
+        document.getElementById('startBtn').style.display = 'inline-block';
+        document.getElementById('stopBtn').style.display = 'none';
+    
+    }
+}
+//gumagana to sa baba
+// function scanQRCode() {
+//     const canvas = document.createElement('canvas');
+//     const context = canvas.getContext('2d');
+//     context.canvas.getContext('2d', { willReadFrequently: true });
+
+//     video.addEventListener('loadedmetadata', function() {
+//         canvas.width = video.videoWidth;
+//         canvas.height = video.videoHeight;
+
+//         const scan = () => {
+//             if (video.readyState === video.HAVE_ENOUGH_DATA) {
+//                 context.drawImage(video, 0, 0, canvas.width, canvas.height);
+//                 const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+//                 const code = jsQR(imageData.data, imageData.width, imageData.height);
+//                 if (code) {
+//                     console.log('QR code detected:', code.data);
+//                     // Extracting and displaying only name and license plate number
+//                     const resultDiv = document.getElementById('result');
+//                     const parsedData = JSON.parse(code.data);
+//                     const name = parsedData.name;
+//                     const plateNumber = parsedData.plateNumber;
+//                     resultDiv.innerText = `Name: ${name}\nLicense Plate: ${plateNumber}`;
+//                 }
+//             }
+//             requestAnimationFrame(scan);
+//         };
+//         scan();
+//     });
+// }
+//gumagana to sa taas
+
+//kamuka sa taas tong code na 'to
+function scanQRCode() {
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+
+  video.addEventListener('loadedmetadata', function() {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+      const scan = () => {
+          if (video.readyState === video.HAVE_ENOUGH_DATA) {
+              context.drawImage(video, 0, 0, canvas.width, canvas.height);
+              const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+              try {
+                  const code = jsQR(imageData.data, imageData.width, imageData.height);
+                  if (code) {
+                      console.log('QR code detected:', code.data);
+                      // Extracting and displaying only name and license plate number
+                      const resultDiv = document.getElementById('result');
+                      const parsedData = JSON.parse(code.data);
+                      const name = parsedData.name;
+                      const plateNumber = parsedData.plateNumber;
+                      resultDiv.innerText = `Name: ${name}\nPlate Number: ${plateNumber}`;
+                      checkDataInDriversCollection(name, plateNumber); //siningit ko lang ot ah ahahha
+                  }
+              } catch (error) {
+                  console.error('Error decoding QR code:', error);
+              }
+          }
+          requestAnimationFrame(scan);
+      };
+      scan();
+  });
+}
+  //check
+
+
+function loadQRFile(event) {
+  const file = event.target.files[0];
+  if (file) {
+      const reader = new FileReader();
+      reader.onload = function() {
+          const img = new Image();
+          img.onload = function() {
+              const canvas = document.createElement('canvas');
+              const context = canvas.getContext('2d');
+              canvas.width = img.width;
+              canvas.height = img.height;
+              context.drawImage(img, 0, 0, img.width, img.height);
+              try {
+                  const imageData = context.getImageData(0, 0, img.width, img.height);
+                  const code = jsQR(imageData.data, imageData.width, imageData.height);
+                  if (code) {
+                      console.log('QR code detected:', code.data);
+                      // Extracting and displaying only name and license plate number
+                      const parsedData = JSON.parse(code.data);
+                      const name = parsedData.name;
+                      const plateNumber = parsedData.plateNumber;
+                      // Call a function to check if the data exists in the "Drivers" collection
+                      checkDataInDriversCollection(name, plateNumber);
+                  } else {
+                      alert('No QR Code detected in the image.');
+                  }
+              } catch (error) {
+                  console.error('Error processing QR code image:', error);
+              }
+          };
+          img.onerror = function() {
+              console.error('Error loading image:', img.src);
+          };
+          img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+  }
+}
+//gumagana tong nasa babako
+// function checkDataInDriversCollection(name, plateNumber) {
+//   const driversCollection = firebase.firestore().collection("Drivers");
+//   // Query the "Drivers" collection for documents with matching name and plateNumber
+//   driversCollection.where("name", "==", name).where("plateNumber", "==", plateNumber)
+//       .get()
+//       .then((querySnapshot) => {
+//           if (!querySnapshot.empty) {
+//               // If documents exist, log "verified"
+//               console.log("verified");
+
+// // Extract the data from the first matching document
+// const driverData = querySnapshot.docs[0].data();
+// // Add the verified data to the queuing lists
+// addToQueuingLists(driverData.name, driverData.plateNumber);
+
+//           } else {
+//               // If no matching documents found, log "not verified"
+//               console.log("not verified");
+//           }
+//       })
+//       .catch((error) => {
+//           console.error("Error checking data in Drivers collection:", error);
+//       });
+// }
+
+
+// function checkDataInDriversCollection(name, plateNumber) {
+//   const driversCollection = firebase.firestore().collection("Drivers");
+//   const activeUsersCollection = firebase.firestore().collection("ActiveUsers");
+
+//   // Query the "Drivers" collection for documents with matching name and plateNumber
+//   driversCollection.where("name", "==", name).where("plateNumber", "==", plateNumber)
+//       .get()
+//       .then((querySnapshot) => {
+//           if (!querySnapshot.empty) {
+//               // If documents exist, log "verified"
+//               console.log("verified");
+
+//               // Extract the data from the first matching document
+//               const driverData = querySnapshot.docs[0].data();
+
+//               // Save the driver's data to the ActiveUsers collection
+//               activeUsersCollection.add({
+//                 name: driverData.name,
+//                 plateNumber: driverData.plateNumber,
+//                 registrationDateTime: new Date() // You can set the registration date/time here
+//               })
+//               .then((docRef) => {
+//                 console.log("Driver data saved to ActiveUsers collection with ID: ", docRef.id);
+//               })
+//               .catch((error) => {
+//                 console.error("Error adding driver data to ActiveUsers collection: ", error);
+//               });
+
+//               // Add the verified data to the queuing lists
+//               addToQueuingLists(driverData.name, driverData.plateNumber);
+
+//           } else {
+//               // If no matching documents found, log "not verified"
+//               console.log("not verified");
+//           }
+//       })
+//       .catch((error) => {
+//           console.error("Error checking data in Drivers collection:", error);
+//       });
+// }
+//gumagana tong sa taas ko
+//goods na tong sa baba nakakascan na ng qr code
+
+function checkDataInDriversCollection(name, plateNumber) {
+  const driversCollection = firebase.firestore().collection("Drivers");
+  const activeUsersCollection = firebase.firestore().collection("ActiveUsers");
+
+  // Query the "Drivers" collection for documents with matching name and plateNumber
+  driversCollection.where("name", "==", name).where("plateNumber", "==", plateNumber)
+    .get()
+    .then((querySnapshot) => {
+      if (!querySnapshot.empty) {
+        // If documents exist, log "verified"
+        console.log("verified");
+
+        // Extract the data from the first matching document
+        const driverData = querySnapshot.docs[0].data();
+
+        // Check if the driver's data is already in the registeredUsers array
+        const isRegistered = registeredUsers.some(user => user.name === driverData.name && user.plateNumber === driverData.plateNumber);
+
+        if (!isRegistered) {
+          // Save the driver's data to the ActiveUsers collection
+          activeUsersCollection.add({
+            name: driverData.name,
+            plateNumber: driverData.plateNumber,
+            registrationDateTime: new Date() // You can set the registration date/time here
+          })
+          .then((docRef) => {
+            console.log("Driver data saved to ActiveUsers collection with ID: ", docRef.id);
+          })
+          .catch((error) => {
+            console.error("Error adding driver data to ActiveUsers collection: ", error);
+          });
+
+          // Add the verified data to the queuing lists
+          addToQueuingLists(driverData.name, driverData.plateNumber);
+        } else {
+          console.log("Driver is already registered.");
+        }
+      } else {
+        // If no matching documents found, log "not verified"
+        console.log("not verified");
+      }
+    })
+    .catch((error) => {
+      console.error("Error checking data in Drivers collection:", error);
+    });
+}
+
+
+
+function addToQueuingLists(name, plateNumber) {
+  // Add the verified data to the queuing lists
+  const registeredUsersList = document.getElementById('userList');
+  const listItem = document.createElement('li');
+  listItem.textContent = `Name: ${name}, License Plate: ${plateNumber}`;
+  registeredUsersList.appendChild(listItem);
+
+  // You can also add the data to the registeredUsers array if needed
+  registeredUsers.push({ name, plateNumber });
+  // Update the UI to reflect the changes
+  updateUI();
+}
+
+
+
+function removeFile() {
+    document.getElementById('qrFileInput').value = '';
+
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerText = '';
+}
+
+
+
+// Function to fetch and display data from the "Drivers" collection
+function fetchAndDisplayDrivers() {
+  const driversCollection = firebase.firestore().collection("Drivers");
+
+  driversCollection.get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const driverData = doc.data();
+        console.log("Driver:", driverData);
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching drivers:", error);
+    });
+}
+
+// Call the function to fetch and display drivers when needed
+fetchAndDisplayDrivers();
