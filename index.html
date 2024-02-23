@@ -11,6 +11,9 @@
 <body>
 
   <div class="container">
+
+    <!-- <button id="fullscreenBtn">Fullscreen</button> -->
+
     
     <!-- <div class="qr">
 
@@ -30,6 +33,7 @@
 
 
     <div class="cameraa">CAMERA</div>
+    <button id="fullscreenBtn">Fullscreen</button>
 
     <div id="datetimeContainer"></div>
 
@@ -38,7 +42,7 @@
  
 
     <div class="side-container" id="notificationContainer">
-      <h2>Notification:</h2>
+      <h2 class="title-h2">NOTIFICATION</h2>
       
       
       <div id="notificationList" class="scrollable-list"></div>
@@ -59,29 +63,31 @@
     </div>
 
     <div class="main-container" id="registeredUsersBox">
-
-   
+      <h2 class="title-h2">QUEUE</h2>
+    <div class="white-bg">
 
       <div id="video-container">
         <video id="video" playsinline></video>
-    </div>
-    <div id="controls" style="text-align: center; margin-top: 10px;">
-        <button id="startBtn">Start Camera</button>
-        <button id="stopBtn" style="display: none;">Stop Camera</button>
-        <input type="file" id="qrFileInput" accept="image/*">
-      
-        <button id="doneBtn">Done</button> 
-    </div>
-    <div id="result"></div>
+      </div>
+
+      <div id="controls" style="text-align: center; margin-top: 10px;">
+          <button id="startBtn">ADD/REMOVE </button>
+          <button id="stopBtn" style="display: none;">Stop Camera</button>
+          <input type="file" id="qrFileInput" accept="image/*">
+        
+          <button id="doneBtn">Done</button> 
+      </div>
+
+      <div id="result"></div>
 
 
-      <h2>Queuing List:</h2>
+      <!-- <h2 class="title-h2">QUEUE</h2> -->
       <ul id="userList"></ul>
 
       
       <!-- Button to trigger the registration form modal -->
-      <!-- <button onclick="openRegistrationForm()">Add ,isipin mo fingerprint 'to</button> -->
-      <button onclick="removeFirstUser()">Out muna ako </button>
+      <button class="test-button" onclick="openRegistrationForm()">Add ,isipin mo fingerprint 'to</button>
+      <button class="test-button" onclick="removeFirstUser()">Out muna ako </button>
 
       <!-- Registration form modal -->
       <div id="registrationModal" class="modal">
@@ -101,6 +107,8 @@
       </div>
 
       <div id="userData"></div>
+
+    </div>
     </div>
 
     <!-- <div class="side-container" id="historyContainer">
@@ -110,7 +118,7 @@
 
     <div class="side-container" id="historyContainer">
       <div class="history-content">
-        <h2>Ride Completed:</h2>
+        <h2 class="title-h2">HISTORY</h2>
        
       </div>
       <div class="scrollable-list-container">

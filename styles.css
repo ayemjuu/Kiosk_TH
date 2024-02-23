@@ -5,31 +5,40 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 90vh;
   margin: 0;
   margin-right: 80px;
   padding: 10px;
+
+  /* background-image: url('./image/bg.jpg');
+  background-size: cover; */
 }
 
 .container {
   display: flex;
-  justify-content: space-between; /* Align containers horizontally with space between */
-  align-items: stretch; /* Stretch containers to equal height */
-  max-width: 800px; /* Adjust the max-width as needed */
+  justify-content: center; /* Align containers horizontally with space between */
+  align-items: center; /* Stretch containers to equal height */
+  max-width: 1000px; /* Adjust the max-width as needed */
   width: 80%; /* Adjust the width as needed */
-  margin-top: 70px;
+  margin-top: 190px;
+  margin-left: 140px;
+}
+
+.title-h2 {
+  font-size: 30px;
 }
 
 .side-container,
 .main-container {
-  flex: 0 0 30%; /* Distribute available space equally among side and main containers */
+  flex: 0 0 35%; /* Distribute available space equally among side and main containers */
   margin-right: 50px;
-  height: 400px; /* Fixed height for all containers */
+  height: 550px; /* Fixed height for all containers */
+  
   
 }
 
 .side-container {
-  background-color: #e6e6e6;
+  background-color: #ffd702;
   padding: 10px;
   border-radius: 8px;
   text-align: center;
@@ -67,7 +76,9 @@ button {
 }
 
 #registeredUsersBox {
-  background-color: pink;
+  /* background-color: pink; */
+  background-color: #ffd702;
+
   padding: 10px;
   border-radius: 8px;
 }
@@ -75,21 +86,69 @@ button {
 #userList {
   list-style: none;
   padding: 0;
+  max-height: 353px; /* Adjust based on your needs */
+  overflow-y: auto; /* Enables vertical scrolling */
+  padding-right: 10px;
+  margin-top: -5px;
+
+
+  
+}
+/* #userList li:hover {
+  background-color: #9eadff;
+} */
+
+
+/* Style scrollbar */
+#userList::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+ 
+}
+/* Track */
+#userList::-webkit-scrollbar-track {
+  background: #bebebe; /* Color of the scrollbar track */
+  border-radius: 10px;
+ 
 }
 
+/* Handle */
+#userList::-webkit-scrollbar-thumb {
+  background: rgb(95, 95, 95); /* Color of the scrollbar handle */
+  border-radius: 10px;
+  
+}
+
+/* Handle on hover */
+#userList::-webkit-scrollbar-thumb:hover {
+  background: rgb(95, 95, 95); /* Color of the scrollbar handle on hover */
+  border-radius: 10px;
+}
+
+
 #userList li {
-  margin: 5px 0;
+  /* margin: 20px ; */
+  margin-bottom: 10px;
+  background-color: #93d4ff;
+    /* padding-left: 80px;
+    padding-right: 80px; */
+    padding-top: 15px;
+    padding-bottom: 15px;
+   text-align:center;
+   border-radius: 5px;
+
+
+  
 }
 
 #notificationContainer {
-  background-color: pink;
+  background-color: '#ffd702';
   padding: 10px;
   border-radius: 8px;
   text-align: center;
 }
 
 #notificationContainer h2 {
-  margin-bottom: 5px;
+  margin-bottom: 25px;
 }
 
 #notificationContainer p {
@@ -97,7 +156,9 @@ button {
 }
 
 #historyContainer {
-  background-color: pink;
+  /* background-color: pink; */
+  background-color: #ffd702;
+
   padding: 10px;
   border-radius: 8px;
   text-align: center;
@@ -109,7 +170,7 @@ button {
   border-bottom: 1px solid #ccc;
  background-color: white;
  margin-bottom: 5px;
- height: 30px;
+ height: 46px;
  text-align: center ;
  
  display: flex;
@@ -125,7 +186,7 @@ border-radius: 5px;
 }
 
 #historyContainer li:hover {
-  background-color: #b3c6db;
+  background-color: #9eadff;
 }
 
 .history-content {
@@ -156,8 +217,43 @@ border-radius: 5px;
 /* SA SCROLLABLE LIST */
 
 .scrollable-list-container {
-  max-height: 300px; /* Adjust the maximum height as needed */
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 23px;
+  max-height: 440px; /* Adjust the maximum height as needed */
   overflow-y: auto; /* Enable vertical scrollbar if the content exceeds the container height */
+  padding-right: 10px;
+}
+
+/* Hide scrollbar for Chrome, Safari, and Opera */
+/* .scrollable-list-container::-webkit-scrollbar {
+  width: 0; 
+} */
+
+
+/* Style scrollbar */
+.scrollable-list-container::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+ 
+}
+/* Track */
+.scrollable-list-container::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the scrollbar track */
+  border-radius: 10px;
+ 
+}
+
+/* Handle */
+.scrollable-list-container::-webkit-scrollbar-thumb {
+  background: rgb(95, 95, 95); /* Color of the scrollbar handle */
+  border-radius: 10px;
+  
+}
+
+/* Handle on hover */
+.scrollable-list-container::-webkit-scrollbar-thumb:hover {
+  background: rgb(95, 95, 95); /* Color of the scrollbar handle on hover */
+  border-radius: 10px;
 }
 
 .history-list li {
@@ -202,11 +298,17 @@ border-radius: 5px;
   text-align: right;
   margin-top: 10px;
   margin-right: 20px;
-  font-size: 14px;
+  font-size: 20px;
   color: #555;
   position: absolute;
-  top: 0;
-  right: 0;
+ bottom: 30px;
+left: 30px;
+}
+
+#fullscreenBtn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
 }
 
 
@@ -245,14 +347,51 @@ border-radius: 5px;
   margin-bottom: 5px;
   background-color: #f9f9f9;
   transition: background-color 0.3s ease; /* Smooth transition on hover */
+  height: 35px;
+  border-radius: 5px;
+  display: flex; /* Use flexbox */
+  justify-content: center;
+  align-items: center; 
+
 }
 
 /* Hover styles for the clickable item */
 .clickable-item:hover {
-  background-color: #e0e0e0;
+  background-color: #9eadff;
   color: #333;
 }
+.scrollable-list-container-notif {
+  margin-left: 10px;
+  margin-right: 10px;
+  max-height: 440px; /* Adjust the maximum height as needed */
+  overflow-y: auto; /* Enable vertical scrollbar if the content exceeds the container height */
+  padding-right: 10px;
+}
 
+/* Style scrollbar */
+.scrollable-list-container-notif::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+ 
+}
+/* Track */
+.scrollable-list-container-notif::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the scrollbar track */
+  border-radius: 10px;
+ 
+}
+
+/* Handle */
+.scrollable-list-container-notif::-webkit-scrollbar-thumb {
+  background: rgb(95, 95, 95); /* Color of the scrollbar handle */
+  border-radius: 10px;
+  
+}
+
+/* Handle on hover */
+.scrollable-list-container-notif::-webkit-scrollbar-thumb:hover {
+  background: rgb(95, 95, 95); /* Color of the scrollbar handle on hover */
+  border-radius: 10px;
+}
 
 #registrationForm {
 
@@ -267,11 +406,11 @@ margin-top: 100px;
 
 .cameraa {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 30px;
+  left: 30px;
   background-color: gray;
-  width: 150px; /* Adjust width as needed */
-  height: 112px;
+  width: 192px; /* Adjust width as needed */
+  height: 152px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -279,12 +418,12 @@ margin-top: 100px;
 
 #video-container {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 30px;
+  left: 30px;
   /* width: 100%;
   text-align: center; */
-  width: 150px; /* Adjust width as needed */
-  height: 112px; /* Adjust height as needed */
+  width: 190px; /* Adjust width as needed */
+  height: 150px; /* Adjust height as needed */
   border: 2px solid black;
 }
 #video {
@@ -309,7 +448,7 @@ margin-top: 100px;
   background-color: blue;
 }
 
-#doneBtn {
+#doneBtn{
   background-color: pink;
   color: pink;
   border: 0px;
@@ -324,13 +463,55 @@ margin-top: 100px;
 
 .logo {
   position: absolute;
-  top: 0;
+  top: 40px;
   left: 50%;
   transform: translateX(-50%);
 
  
  
-  width: 250px;
+  width: 280px;
   
 }
 
+
+#startBtn, #stopBtn{
+  position: absolute;
+  top: 660px;
+  left: 620px;
+
+  background-color: #95f59d;
+ border-width: 0;
+ border-color: black;
+ border-style: solid; /* Ensure border style is solid */
+
+  width: 200px;
+  border-radius: 10px;
+ 
+
+ 
+}
+
+.test-button {
+  display: none;
+  position: absolute;
+  top: 110px;
+  left: 620px;
+}
+
+.white-bg {
+  background-color: rgb(255, 255, 255);
+  height: 400px;
+  width: 77%;
+  padding: 20px;
+  border-radius: 10px;
+  margin-left: 15px;
+
+}
+
+
+
+#logoutBtn {
+  position: absolute;
+  top: 70px;
+  right: 30px;
+}
