@@ -12,6 +12,60 @@
 
   <div class="container">
 
+
+
+<!-- Modal -->
+<div id="errorModal" class="errorModal">
+  <div class="errormodal-content">
+    <span class="errorclose">&times;</span>
+    <p id="errorMessage"></p>
+  </div>
+</div>
+
+
+
+
+
+    
+
+    <!-- <button id="reportopenModalBtn">Report</button>
+
+    <div id="reportmodal" class="reportmodal">
+      
+        <div class="reportmodal-content">
+          <h1 class="report-title">Report</h1>
+          <span class="reportclose">&times;</span>
+          <div id="requestListContainer"></div>
+          <div id="modalTrigger"></div>
+        </div>
+    </div>
+
+
+    <div id="secondModal" class="second-modal">
+ 
+      <div class="second-modal-content">
+        <span class="second-modal-close">&times;</span>
+        <div id="secondModalContent"></div>
+      </div>
+    </div>
+    
+
+    <div id="reportModal" class="report-modal">
+      <div class="report-modal-content">
+        <span class="report-modal-close">&times;</span>
+        <h2>Report</h2>
+        <form id="reportForm">
+          <label for="reportReason">Reason for Report:</label>
+          <textarea id="reportReason" name="reportReason" rows="4" required></textarea>
+          <button type="submit">Submit Report</button>
+        </form>
+      </div>
+    </div> -->
+    
+    
+
+
+
     <!-- <button id="fullscreenBtn">Fullscreen</button> -->
 
     
@@ -33,7 +87,13 @@
 
 
     <div class="cameraa">CAMERA</div>
-    <button id="fullscreenBtn">Fullscreen</button>
+    <!-- <button id="fullscreenBtn">
+      <img src="image/fullscreen.png" alt="Image" style="width: 20px; height: 20px;">
+
+    </button> -->
+
+    <img id="fullscreenImg" src="image/fullscreen.png" alt="Fullscreen" style="width: 24px; height: 24px;">
+
 
     <div id="datetimeContainer"></div>
 
@@ -70,19 +130,27 @@
         <video id="video" playsinline></video>
       </div>
 
-      <div id="controls" style="text-align: center; margin-top: 10px;">
-          <button id="startBtn">ADD/REMOVE </button>
+      <!-- <div id="controls" style="text-align: center; margin-top: 10px;">
+          <button id="startBtn">Add </button>
           <button id="stopBtn" style="display: none;">Stop Camera</button>
           <input type="file" id="qrFileInput" accept="image/*">
         
           <button id="doneBtn">Done</button> 
-      </div>
+      </div> -->
 
       <div id="result"></div>
 
 
       <!-- <h2 class="title-h2">QUEUE</h2> -->
       <ul id="userList"></ul>
+
+      <!-- <div id="controls" style="text-align: center; margin-top: 10px;">
+        <button id="startBtn">Add </button>
+        <button id="stopBtn" style="display: none;">Stop Camera</button>
+        <input type="file" id="qrFileInput" accept="image/*">
+      
+        <button id="doneBtn">Done</button> 
+    </div> -->
 
       
       <!-- Button to trigger the registration form modal -->
@@ -109,6 +177,14 @@
       <div id="userData"></div>
 
     </div>
+
+    <div id="controls" style="text-align: center; margin-top: 10px;">
+      <button id="startBtn">Queue </button>
+      <button id="stopBtn" style="display: none;">Close</button>
+      <input type="file" id="qrFileInput" accept="image/*">
+    
+      <button id="doneBtn">Done</button> 
+  </div>
     </div>
 
     <!-- <div class="side-container" id="historyContainer">

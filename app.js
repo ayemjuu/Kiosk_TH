@@ -45,24 +45,45 @@ function updateDateTime() {
   datetimeContainer.textContent = formattedDateTime;
 }
 
-//fullscreen
-const fullscreenBtn = document.getElementById('fullscreenBtn');
+// //fullscreen
+// const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+// // Function to toggle fullscreen mode
+// function toggleFullscreen() {
+//   if (!document.fullscreenElement) {
+//     document.documentElement.requestFullscreen();
+//     // fullscreenBtn.textContent = 'Exit Fullscreen';
+//     fullscreenBtn.querySelector('img').src = 'image/minimize.png';
+//   } else {
+//     if (document.exitFullscreen) {
+//       document.exitFullscreen();
+//       // fullscreenBtn.textContent = 'Fullscreen';
+//       fullscreenBtn.querySelector('img').src = 'image/fullscreen.png';
+//     }
+//   }
+// }
+
+// // Event listener for the button click
+// fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+
+const fullscreenImg = document.getElementById('fullscreenImg');
 
 // Function to toggle fullscreen mode
 function toggleFullscreen() {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen();
-    fullscreenBtn.textContent = 'Exit Fullscreen';
-  } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-      fullscreenBtn.textContent = 'Fullscreen';
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+        fullscreenImg.src = 'image/minimize.png';
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+            fullscreenImg.src = 'image/fullscreen.png';
+        }
     }
-  }
 }
 
-// Event listener for the button click
-fullscreenBtn.addEventListener('click', toggleFullscreen);
+// Event listener for the image click
+fullscreenImg.addEventListener('click', toggleFullscreen);
 
 
 
@@ -370,6 +391,7 @@ function handlePlateNumberClick(bookingData, userName, bookingDocId) {
   });
 
   modalDataDiv.innerHTML = `
+  <p class="ride-detail"> Ride Details: </p>
     <p id="pickupPoint">Pickup Point: ${bookingData.pickupPoint}</p>
     <p id="dropOffPoint">Drop-off Point: ${bookingData.dropOffPoint}</p>
     <p id="dateTime">Time Requested: ${formattedDateTime}</p>
@@ -377,11 +399,13 @@ function handlePlateNumberClick(bookingData, userName, bookingDocId) {
  <p id="userContactNumber">Contact Number: ${bookingData.userContactNumber}</p> 
  
     <!-- Accept button -->
-    <button onclick="acceptRide('${bookingData.pickupPoint}', '${bookingData.dropOffPoint}', '${formattedDateTime}', '${userName}', '${bookingData.userContactNumber}', '${bookingDocId}')">Accept (fingerprint)</button>
     <button id="scanButton">Scan</button>
     <button id="closeButton" style="display:none;">Close Camera</button>
   `;
 
+
+  // <button onclick="acceptRide('${bookingData.pickupPoint}', '${bookingData.dropOffPoint}', '${formattedDateTime}', '${userName}', '${bookingData.userContactNumber}', '${bookingDocId}')">Accept (fingerprint)</button>
+  
 // Add event listener to the scan button
 const scanButton = document.getElementById('scanButton');
 scanButton.addEventListener('click', () => {
@@ -393,12 +417,12 @@ scanButton.addEventListener('click', () => {
       videoElement.srcObject = stream;
       videoElement.autoplay = true;
       videoElement.width = 190; // Set the width of the video element
-      videoElement.height = 150; // Set the height of the video element
+      videoElement.height = 145; // Set the height of the video element
       // Apply CSS styles for absolute positioning to center the video element
       videoElement.style.position = 'absolute';
-      videoElement.style.top = '-210px';
-      videoElement.style.left = '-380px';
-      videoElement.style.border = '2px solid red';
+      videoElement.style.top = '-160px';
+      videoElement.style.left = '-330px';
+      videoElement.style.border = '2px solid black';
 videoElement.style.margin = '10px';
 
 
@@ -777,6 +801,8 @@ const formattedDate = new Intl.DateTimeFormat('en-US', options).format(timestamp
        console.log('Bad');
      }
    }
+
+
 
   
 
@@ -1243,7 +1269,7 @@ function displayHistoryModal(historyData) {
   // Update the content of the modal with the history details
   const modalDataDiv = document.getElementById('modalData');
   modalDataDiv.innerHTML = `
-    <p> Ride Details: </p>
+    <p class="ride-detail"> Ride Details: </p>
     <p>Driver Name: ${driverName}</p>
     <p>Driver Plate Number: ${driverPlateNumber}</p>
     <p>Pickup Point: ${pickupPoint}</p>
@@ -1800,6 +1826,31 @@ function loadQRFile(event) {
 //     });
 // }
 
+
+
+// Display error message in modal
+function displayError(errorMessage) {
+  const modal = document.getElementById("errorModal");
+  const message = document.getElementById("errorMessage");
+
+  message.textContent = errorMessage;
+  modal.style.display = "block";
+
+  // Close the modal when the close button or anywhere outside the modal is clicked
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  const closeBtn = document.getElementsByClassName("errorclose")[0];
+  closeBtn.onclick = function() {
+    modal.style.display = "none";
+  }
+}
+
+
+
 //di makakapag queue yung driver hangggat di pa succesful yung status niya :)
 function checkDataInDriversCollection(name, plateNumber) {
   const driversCollection = firebase.firestore().collection("Drivers");
@@ -1891,6 +1942,8 @@ function checkDataInDriversCollection(name, plateNumber) {
           });
       } else {
         console.log("Cannot add to queuing list: Not all documents have status true.");
+        // alert("Error: Ongoing ride");
+        displayError("You can't queue until you finish your current trip");
       }
     })
     .catch((error) => {
@@ -1944,3 +1997,402 @@ function fetchAndDisplayDrivers() {
 
 // Call the function to fetch and display drivers when needed
 fetchAndDisplayDrivers();
+
+
+
+
+
+//reportmodal
+
+
+// Get the modal
+var modal = document.getElementById("reportmodal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("reportopenModalBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("reportclose")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+// Initialize Firestore
+const db = firebase.firestore();
+
+
+
+
+function formatDate(date) {
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const day = date.getDate();
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+  let hours = date.getHours();
+  const minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+  const seconds = (date.getSeconds() < 10 ? '0' : '') + date.getSeconds();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // Handle midnight
+  const formattedDate = `${day} ${month} ${year}, ${hours}:${minutes}:${seconds} ${ampm}`;
+  return formattedDate;
+}
+
+
+
+
+
+
+
+// // Function to open the report modal
+// function openReportModal() {
+//   const reportModal = document.getElementById("reportmodal");
+//   reportModal.style.display = "block";
+  
+//   // Get the container for the list
+//   const requestListContainer = document.getElementById("requestListContainer");
+
+//   // Get the current date
+//   const currentDate = new Date();
+
+//   // Fetch data from the "acceptedRequest" collection
+//   db.collection("acceptedRequest").get().then((querySnapshot) => {
+//     requestListContainer.innerHTML = ""; // Clear previous content
+
+//     querySnapshot.forEach((doc) => {
+//       // Get data from each document
+//       const data = doc.data();
+
+//       // Check if timeAccepted is defined and is today's date
+//       if (data.timeAccepted && isSameDay(data.timeAccepted.toDate(), currentDate)) {
+//         // Create a paragraph element to display the document ID and timeAccepted timestamp
+//         const p = document.createElement("p");
+//         // p.textContent = `Request ID: ${doc.id}, Time Accepted: ${formatDate(data.timeAccepted.toDate())}`;
+//         p.textContent = `Request ID: ${doc.id}`;
+        
+//         // Add click event listener to the paragraph element
+//         p.addEventListener("click", () => {
+//           openSecondModal();
+//         });
+
+//         // Append the paragraph element to the container
+//         requestListContainer.appendChild(p);
+//       }
+//     });
+//   }).catch((error) => {
+//     console.log("Error getting documents: ", error);
+//   });
+// }
+
+
+// // Function to open the second modal
+// function openSecondModal() {
+//   const secondModal = document.getElementById("secondModal");
+//   secondModal.style.display = "block";
+
+//   // Get the second modal's close button
+//   const secondModalCloseBtn = document.querySelector(".second-modal-close");
+
+//   // Close the second modal when the close button is clicked
+//   secondModalCloseBtn.addEventListener("click", () => {
+//     secondModal.style.display = "none";
+//   });
+
+
+// }
+
+
+
+//wroking taas
+// Function to open the report modal
+// function openReportModal() {
+//   const reportModal = document.getElementById("reportmodal");
+//   reportModal.style.display = "block";
+  
+//   // Get the container for the list
+//   const requestListContainer = document.getElementById("requestListContainer");
+
+//   // Get the current date
+//   const currentDate = new Date();
+
+//   // Fetch data from the "acceptedRequest" collection
+//   db.collection("acceptedRequest").get().then((querySnapshot) => {
+//     requestListContainer.innerHTML = ""; // Clear previous content
+
+//     querySnapshot.forEach((doc) => {
+//       // Get data from each document
+//       const data = doc.data();
+
+//       // Check if timeAccepted is defined and is today's date
+//       if (data.timeAccepted && isSameDay(data.timeAccepted.toDate(), currentDate)) {
+//         // Create a paragraph element to display the document ID and timeAccepted timestamp
+//         const p = document.createElement("p");
+//         // p.textContent = `Request ID: ${doc.id}, Driver Name: ${data.driverName}`;
+//         p.textContent = `Driver Name: ${data.driverName}`;
+
+        
+//         // Add click event listener to the paragraph element
+//         p.addEventListener("click", () => {
+//           openSecondModal(doc.id); // Pass the document ID to the function
+//         });
+
+//         // Append the paragraph element to the container
+//         requestListContainer.appendChild(p);
+//       }
+//     });
+//   }).catch((error) => {
+//     console.log("Error getting documents: ", error);
+//   });
+// }
+
+//may scrolllist lang
+function openReportModal() {
+  const reportModal = document.getElementById("reportmodal");
+  reportModal.style.display = "block";
+  
+  // Get the container for the list
+  const requestListContainer = document.getElementById("requestListContainer");
+
+  // Get the current date
+  const currentDate = new Date();
+
+  // Fetch data from the "acceptedRequest" collection
+  db.collection("acceptedRequest").get().then((querySnapshot) => {
+    requestListContainer.innerHTML = ""; // Clear previous content
+
+    querySnapshot.forEach((doc) => {
+      // Get data from each document
+      const data = doc.data();
+
+      // Check if timeAccepted is defined and is today's date
+      if (data.timeAccepted && isSameDay(data.timeAccepted.toDate(), currentDate)) {
+        // Create a paragraph element to display the document ID and timeAccepted timestamp
+        const p = document.createElement("p");
+        // p.textContent = `Request ID: ${doc.id}, Driver Name: ${data.driverName}`;
+        p.textContent = `Driver Name: ${data.driverName}`;
+
+        
+        // Add click event listener to the paragraph element
+        p.addEventListener("click", () => {
+          openSecondModal(doc.id); // Pass the document ID to the function
+        });
+
+        // Append the paragraph element to the container
+        requestListContainer.appendChild(p);
+      }
+    });
+    
+    // After adding all items, apply scrollable style
+    requestListContainer.style.overflowY = "auto";
+    requestListContainer.style.maxHeight = "200px"; // Adjust the max height as needed
+  }).catch((error) => {
+    console.log("Error getting documents: ", error);
+  });
+}
+
+
+
+// // Function to open the second modal with the ID
+// function openSecondModal(id) {
+//   const secondModal = document.getElementById("secondModal");
+//   secondModal.style.display = "block";
+
+//   // Display the ID in the second modal
+//   const idElement = document.getElementById("secondModalId");
+//   idElement.textContent = id;
+
+//   // Get the second modal's close button
+//   const secondModalCloseBtn = document.querySelector(".second-modal-close");
+
+//   // Close the second modal when the close button is clicked
+//   secondModalCloseBtn.addEventListener("click", () => {
+//     secondModal.style.display = "none";
+//   });
+// }
+
+
+
+// Function to open the second modal with the ID
+// function openSecondModal(id) {
+//   const secondModal = document.getElementById("secondModal");
+//   const secondModalContent = document.getElementById("secondModalContent");
+//   secondModal.style.display = "block";
+
+//   // Fetch the data from Firestore based on the ID
+//   db.collection("acceptedRequest").doc(id).get().then((doc) => {
+//     if (doc.exists) {
+//       const data = doc.data();
+//       // Create HTML content to display the data
+//       const htmlContent = `
+//         <div class="reportdetails">
+//         <h1 style="text-align:center">Details</h1>
+         
+//           <p>Driver Name: ${data.driverName}</p>
+//           <p>Driver Plate Number: ${data.driverPlateNumber}</p>
+//           <p>Drop-off Point: ${data.dropOffPoint}</p>
+//           <p>Pickup Point: ${data.pickupPoint}</p>
+//           <p>Request By: ${data.requestBy}</p>
+//           <p>Successful: ${data.successful ? 'Yes' : 'No'}</p>
+//           <p>Time Accepted: ${formatDate(data.timeAccepted.toDate())}</p>
+//           <button id="reportButton">Report</button>
+//       </div>
+        
+//       `;
+//       // Set the HTML content in the second modal
+//       // <p>Request ID: ${id}</p>
+//       secondModalContent.innerHTML = htmlContent;
+//     } else {
+//       // Handle the case where the document does not exist
+//       secondModalContent.innerHTML = "<p>No data found for this ID.</p>";
+//     }
+//   }).catch((error) => {
+//     console.log("Error getting document:", error);
+//     // Display an error message in the second modal if an error occurs
+//     secondModalContent.innerHTML = "<p>Error retrieving data.</p>";
+//   });
+
+//   // Get the second modal's close button
+//   const secondModalCloseBtn = document.querySelector(".second-modal-close");
+
+//   // Close the second modal when the close button is clicked
+//   secondModalCloseBtn.addEventListener("click", () => {
+//     secondModal.style.display = "none";
+//   });
+// }
+
+
+// Function to open the second modal with the ID
+function openSecondModal(id) {
+  const secondModal = document.getElementById("secondModal");
+  const secondModalContent = document.getElementById("secondModalContent");
+  secondModal.style.display = "block";
+
+  // Fetch the data from Firestore based on the ID
+  db.collection("acceptedRequest").doc(id).get().then((doc) => {
+    if (doc.exists) {
+      const data = doc.data();
+      // Create HTML content to display the data
+      const htmlContent = `
+        <div class="reportdetails">
+          <h1 style="text-align:center; margin-top: -40px;">Details</h1>
+          <p style="font-weight: bold;">Request By: ${data.requestBy}</p>
+
+          <p>Driver Name: ${data.driverName}</p>
+          <p>Driver Plate Number: ${data.driverPlateNumber}</p>
+          <p>Drop-off Point: ${data.dropOffPoint}</p>
+          <p>Pickup Point: ${data.pickupPoint}</p>
+          <p>Successful: ${data.successful ? 'Yes' : 'No'}</p>
+          <p>Time Accepted: ${formatDate(data.timeAccepted.toDate())}</p>
+          <button id="reportButton">Report</button>
+        </div>
+      `;
+      // Set the HTML content in the second modal
+      secondModalContent.innerHTML = htmlContent;
+
+      // Get the report button
+      const reportButton = document.getElementById("reportButton");
+
+      // Add event listener to report button
+      reportButton.addEventListener("click", () => {
+        // Open the report modal
+        const reportModal = document.getElementById("reportModal");
+        reportModal.style.display = "block";
+      });
+
+      // Get the close button inside the report modal
+      const reportModalCloseBtn = document.querySelector(".report-modal-close");
+
+      // Add event listener to close button
+      reportModalCloseBtn.addEventListener("click", () => {
+        // Close the report modal
+        const reportModal = document.getElementById("reportModal");
+        reportModal.style.display = "none";
+      });
+    } else {
+      // Handle the case where the document does not exist
+      secondModalContent.innerHTML = "<p>No data found for this ID.</p>";
+    }
+  }).catch((error) => {
+    console.log("Error getting document:", error);
+    // Display an error message in the second modal if an error occurs
+    secondModalContent.innerHTML = "<p>Error retrieving data.</p>";
+  });
+
+  // Get the second modal's close button
+  const secondModalCloseBtn = document.querySelector(".second-modal-close");
+
+  // Close the second modal when the close button is clicked
+  secondModalCloseBtn.addEventListener("click", () => {
+    secondModal.style.display = "none";
+  });
+}
+
+
+
+
+
+// Close the report modal when the close button is clicked
+document.querySelector(".reportclose").addEventListener("click", closeReportModal);
+
+// Close the report modal when clicking outside of it
+window.addEventListener("click", (event) => {
+  const reportModal = document.getElementById("reportmodal");
+  if (event.target === reportModal) {
+    reportModal.style.display = "none";
+  }
+});
+
+// Open the report modal when the "Open Modal" button is clicked
+document.getElementById("reportopenModalBtn").addEventListener("click", openReportModal);
+
+
+
+
+
+
+// Function to check if two dates are the same day
+function isSameDay(date1, date2) {
+  return (
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate()
+  );
+}
+
+// Function to close the report modal
+function closeReportModal() {
+  const reportModal = document.getElementById("reportmodal");
+  reportModal.style.display = "none";
+}
+
+// Close the report modal when the close button is clicked
+document.querySelector(".reportclose").addEventListener("click", closeReportModal);
+
+// Close the report modal when clicking outside of it
+window.addEventListener("click", (event) => {
+  const reportModal = document.getElementById("reportmodal");
+  if (event.target === reportModal) {
+    reportModal.style.display = "none";
+  }
+});
+
+// Open the report modal when the "Open Modal" button is clicked
+document.getElementById("reportopenModalBtn").addEventListener("click", openReportModal);
+
+
+

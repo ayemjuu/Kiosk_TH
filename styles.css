@@ -88,7 +88,7 @@ button {
   padding: 0;
   max-height: 353px; /* Adjust based on your needs */
   overflow-y: auto; /* Enables vertical scrolling */
-  padding-right: 10px;
+  padding-right: 0px;
   margin-top: -5px;
 
 
@@ -267,10 +267,10 @@ border-radius: 5px;
 
 
 
-
+/* di na lumalabs modal every reload lool */
 
 #modalContainer {
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
 }
@@ -301,11 +301,11 @@ border-radius: 5px;
   font-size: 20px;
   color: #555;
   position: absolute;
- bottom: 30px;
+ bottom: 0px;
 left: 30px;
 }
 
-#fullscreenBtn {
+#fullscreenBtn, #fullscreenImg {
   position: absolute;
   top: 30px;
   right: 30px;
@@ -327,7 +327,7 @@ left: 30px;
 }
 
 #modalData {
-  text-align: center;
+  text-align: left;
   font-size: 29px;
 }
 
@@ -406,11 +406,11 @@ margin-top: 100px;
 
 .cameraa {
   position: absolute;
-  top: 30px;
-  left: 30px;
+  top: 10px;
+  left: 10px;
   background-color: gray;
   width: 192px; /* Adjust width as needed */
-  height: 152px;
+  height: 145px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -418,12 +418,12 @@ margin-top: 100px;
 
 #video-container {
   position: absolute;
-  top: 30px;
-  left: 30px;
+  top: 10px;
+  left: 10px;
   /* width: 100%;
   text-align: center; */
   width: 190px; /* Adjust width as needed */
-  height: 150px; /* Adjust height as needed */
+  height: 142px; /* Adjust height as needed */
   border: 2px solid black;
 }
 #video {
@@ -475,17 +475,18 @@ margin-top: 100px;
 
 
 #startBtn, #stopBtn{
-  position: absolute;
-  top: 660px;
-  left: 620px;
+  /* position: absolute;
+  top: 80px;
+  right: 30px; */
+ border-width: 0px;
+ /* margin-top: 300px; */
+ background-color: white;
+ border-radius: 5px;
+ font-weight: bold;
 
-  background-color: #95f59d;
- border-width: 0;
- border-color: black;
- border-style: solid; /* Ensure border style is solid */
 
-  width: 200px;
-  border-radius: 10px;
+  /* width: 200px; */
+  /* border-radius: 10px; */
  
 
  
@@ -500,11 +501,11 @@ margin-top: 100px;
 
 .white-bg {
   background-color: rgb(255, 255, 255);
-  height: 400px;
+  height: 385px;
   width: 77%;
   padding: 20px;
   border-radius: 10px;
-  margin-left: 15px;
+  margin-left: 20px;
 
 }
 
@@ -514,4 +515,298 @@ margin-top: 100px;
   position: absolute;
   top: 70px;
   right: 30px;
+}
+
+
+
+.ride-detail {
+  font-size: 16px;
+  color: black;
+  font-size: 40px;
+ padding-bottom: 20px;
+  font-weight: bold;
+}
+
+
+
+
+/* .reportmodal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.reportmodal-content {
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.reportclose {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.reportclose:hover,
+.reportclose:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+} */
+
+#reportopenModalBtn {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+
+}
+/* Styles for the first modal */
+.reportmodal {
+  display: none; /* Hide by default */
+  position: fixed; /* Fixed position */
+  z-index: 1; /* Set z-index to bring it to the front */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4); /* Black background with opacity */
+}
+
+
+#requestListContainer {
+  background-color: white;
+  padding: 20px
+}
+#requestListContainer p {
+  padding: 10px;
+  margin: 0;
+}
+#requestListContainer p:hover {
+ background-color: #93d4ff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.report-title {
+  text-align: center;
+  margin-top: -30px;
+}
+
+.reportmodal-content {
+  background-color: #ffd702;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 50px;
+  padding-bottom: 100px;
+  border: 1px solid #888;
+  width: 30%; /* 80% width */
+  height: 200px;
+  position: relative;
+}
+
+/* Styles for the X button in the first modal */
+.reportclose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.reportclose:hover,
+.reportclose:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+} 
+
+.reportmodal-content p {
+  cursor: pointer;
+}
+
+/* Styles for the X button in the first modal */
+.second-modal-close {
+  margin-left: 555px;
+  margin-bottom: 30px;
+
+  font-size: 20px;
+  cursor: pointer;
+}
+
+
+/* Styles for the second modal */
+.second-modal {
+  display: none; /* Hide by default */
+  position: fixed; /* Fixed position */
+  z-index: 2; /* Set z-index higher to bring it above the first modal */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4); /* Black background with opacity */
+}
+
+.second-modal-content {
+  background-color: white;
+  margin: 15% auto;
+  /* padding: 20px; */
+  padding-top: 5px;
+  padding-bottom: 35px;
+  border: 1px solid #888;
+  width: 40%;
+  height: 30%;
+}
+
+
+
+.reportdetails {
+  background-color:white;
+  padding: 20px;
+  /* padding-top: 5px; */
+  margin-top: 10px;
+  border-radius: 5px;
+  color: black;
+}
+
+
+
+
+
+
+/* CSS for the report modal */
+.report-modal {
+  display: none; /* Hide the report modal by default */
+  position: fixed; /* Fixed positioning to keep it above other content */
+  z-index: 1001; /* Higher z-index to appear above the second modal */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+}
+
+.report-modal-content {
+  background-color: #cab2b2;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+  height: 40%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  position: relative; /* Position relative to allow absolute positioning of close button */
+}
+
+/* CSS for the close button inside the report modal */
+.report-modal-close {
+  color: black;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.report-modal-close:hover,
+.report-modal-close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+#reportReason {
+  height: 200px;
+  width: 99%;
+}
+
+
+
+
+/* error modal */
+
+
+/* Modal Styles */
+.errorModal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.errormodal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+  height: 10%;
+}
+
+.errorclose {
+  /* color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+
+  position: absolute; 
+  top: 5px; 
+  right: 10px; */
+
+  /* margin-top: 505px;
+  margin-right: 410px; */
+
+
+  color: #aaa;
+  position: absolute;
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 2; /* Ensure the close button appears above other content */
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+
+#scanButton {
+  border-width: 0px;
+ color: black;
+  background-color: #ffd702;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+
+#closeButton {
+  border-width: 0px;
+ color: black;
+  background-color: #ffd702;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
