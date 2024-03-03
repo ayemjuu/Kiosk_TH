@@ -9,7 +9,7 @@
   margin: 0;
   margin-right: 80px;
   padding: 10px;
-
+  background-color: #f0f0f0;;
   /* background-image: url('./image/bg.jpg');
   background-size: cover; */
 }
@@ -86,7 +86,7 @@ button {
 #userList {
   list-style: none;
   padding: 0;
-  max-height: 353px; /* Adjust based on your needs */
+  max-height: 390px; /* Adjust based on your needs */
   overflow-y: auto; /* Enables vertical scrolling */
   padding-right: 0px;
   margin-top: -5px;
@@ -299,7 +299,8 @@ border-radius: 5px;
   margin-top: 10px;
   margin-right: 20px;
   font-size: 20px;
-  color: #555;
+  font-weight: bold;
+  color: #000000;
   position: absolute;
  bottom: 0px;
 left: 30px;
@@ -809,4 +810,52 @@ margin-top: 100px;
   font-weight: bold;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+/* The Modal (background) */
+.kioskmodal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 9999; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.kioskmodal-content {
+  background-color: white;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%; /* Could be more or less, depending on screen size */
+  height: 20%;
+  text-align: center;
+ border-radius: 10px;
+
+}
+
+/* The Close Button */
+.kioskclose {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.kioskclose:hover,
+.kioskclose:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.kiosktext {
+  font-size: 20px;
+  color: red;
+ padding-top: 40px;
 }

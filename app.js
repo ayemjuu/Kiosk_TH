@@ -799,6 +799,21 @@ const formattedDate = new Intl.DateTimeFormat('en-US', options).format(timestamp
 
 } else {
        console.log('Bad');
+
+            // Get the modal
+            const modal = document.getElementById("kioskmyModal");
+
+            // When the bad condition happens, display the modal
+            console.log('Bad');
+            modal.style.display = "block";
+
+            // When the user clicks on <span> (x), close the modal
+            const span = document.getElementsByClassName("kioskclose")[0];
+            span.onclick = function() {
+              modal.style.display = "none";
+            }
+
+
      }
    }
 
