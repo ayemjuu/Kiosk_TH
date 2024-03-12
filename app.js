@@ -18,13 +18,24 @@ const firebaseConfig = {
   // appId: "1:617421997910:web:aca4e6fc791b36393d38f7",
   // measurementId: "G-B2P699P8YS"
 
-  apiKey: "AIzaSyDjBboCs4iqBnogiInGpHcVvCEDBGokiLU",
-  authDomain: "thero-28f02.firebaseapp.com",
-  projectId: "thero-28f02",
-  storageBucket: "thero-28f02.appspot.com",
-  messagingSenderId: "394557839181",
-  appId: "1:394557839181:web:53a1bf1d15264d3ab74904",
-  measurementId: "G-MB5NB4LDS3"
+//TodaHero
+  apiKey: "AIzaSyAsg1oW1wpZXUcZo0UcFZ57qYWBAJHfasY",
+  authDomain: "todahero-4e7c0.firebaseapp.com",
+  projectId: "todahero-4e7c0",
+  storageBucket: "todahero-4e7c0.appspot.com",
+  messagingSenderId: "617421997910",
+  appId: "1:617421997910:web:aca4e6fc791b36393d38f7",
+  measurementId: "G-B2P699P8YS"
+
+
+  //THero
+  // apiKey: "AIzaSyDjBboCs4iqBnogiInGpHcVvCEDBGokiLU",
+  // authDomain: "thero-28f02.firebaseapp.com",
+  // projectId: "thero-28f02",
+  // storageBucket: "thero-28f02.appspot.com",
+  // messagingSenderId: "394557839181",
+  // appId: "1:394557839181:web:53a1bf1d15264d3ab74904",
+  // measurementId: "G-MB5NB4LDS3"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -247,7 +258,7 @@ function updateUI() {
   registeredUsers.forEach(user => {
     const listItem = document.createElement('li');
     // listItem.textContent = `Name: ${user.name}, Plate Number: ${user.plateNumber}`;
-    listItem.textContent = `Plate Number: ${user.plateNumber}`;
+    listItem.textContent = `TODA Number: ${user.plateNumber}`;
 
     userList.appendChild(listItem);
   });
@@ -361,7 +372,7 @@ const bookNowCollection = firebase.firestore().collection("BookNow"); // New col
 // }
 
 
-function closeModal() {
+function closeModala() {
   const modal = document.getElementById('modalContainer'); // Replace 'yourModalId' with the actual ID of your modal
   modal.style.display = 'none';
 }
@@ -392,18 +403,18 @@ function handlePlateNumberClick(bookingData, userName, bookingDocId) {
 
   modalDataDiv.innerHTML = `
   <p class="ride-detail"> Ride Details: </p>
-    <p id="pickupPoint">Pickup Point: ${bookingData.pickupPoint}</p>
+    <p id="pickupPoint">Pick-up Point: ${bookingData.pickupPoint}</p>
     <p id="dropOffPoint">Drop-off Point: ${bookingData.dropOffPoint}</p>
     <p id="dateTime">Time Requested: ${formattedDateTime}</p>
-     <p id="userName">User: ${userName}</p> <!-- Display user's name --> 
- <p id="userContactNumber">Contact Number: ${bookingData.userContactNumber}</p> 
+     <p id="userName">Request By: ${userName}</p> <!-- Display user's name --> 
+ 
  
     <!-- Accept button -->
     <button id="scanButton">Scan</button>
     <button id="closeButton" style="display:none;">Close Camera</button>
   `;
 
-
+//<p id="userContactNumber">Contact Number: ${bookingData.userContactNumber}</p> 
   // <button onclick="acceptRide('${bookingData.pickupPoint}', '${bookingData.dropOffPoint}', '${formattedDateTime}', '${userName}', '${bookingData.userContactNumber}', '${bookingDocId}')">Accept (fingerprint)</button>
   
 // Add event listener to the scan button
@@ -420,9 +431,9 @@ scanButton.addEventListener('click', () => {
       videoElement.height = 145; // Set the height of the video element
       // Apply CSS styles for absolute positioning to center the video element
       videoElement.style.position = 'absolute';
-      videoElement.style.top = '-160px';
-      videoElement.style.left = '-330px';
-      videoElement.style.border = '2px solid black';
+      videoElement.style.top = '0px';
+      videoElement.style.left = '0px';
+      // videoElement.style.border = '2px solid black';
 videoElement.style.margin = '10px';
 
 
@@ -503,15 +514,145 @@ videoElement.style.margin = '10px';
 });
 
 
-
+//working kaso built in confirmation 3-11-24
 //checking the data type
+// function handleQRCodeData(qrCodeData) {
+//   // Implement your logic to handle the QR code data here
+//   // For example, you can parse the data and perform specific actions based on its content
+//   console.log('Handling QR code data:', qrCodeData);
+
+
+
+
+//   if (typeof qrCodeData === 'string') {
+//     try {
+//       qrCodeData = JSON.parse(qrCodeData);
+//     } catch (error) {
+//       console.error('Error parsing QR code data:', error);
+//       return;
+//     }
+//   }
+
+//   if (!firstUser) {
+//     console.error('First user data not available');
+//     return; // Exit early if first user data is not available
+//   }
+
+//   // Extract name and plateNumber fields from qrCodeData
+//   const qrCodeName = qrCodeData.name;
+//   const qrCodePlateNumber = qrCodeData.plateNumber;
+
+//   // Extract name and plateNumber fields from firstUser data
+//   const userName = firstUser.data().name;
+//   const userPlateNumber = firstUser.data().plateNumber;
+
+//   // Compare the name and plateNumber fields
+//   if (qrCodeName === userName && qrCodePlateNumber === userPlateNumber) {
+//     console.log('Good');
+    
+
+// const isConfirmed = confirm("Are you sure you want to delete this booking?");
+// if (isConfirmed) {
+//   closeModala();
+//   const bookingDocRef = firebase.firestore().collection("BookNow").doc(bookingDocId);
+//   const firstUserDocRef = firebase.firestore().collection("ActiveUsers").doc(firstUser.id);
+//   const acceptedRequestRef = firebase.firestore().collection("acceptedRequest").doc(bookingDocId);
+
+//   Promise.all([bookingDocRef.get(), firstUserDocRef.get()])
+//     .then((snapshots) => {
+//       const bookingDocSnapshot = snapshots[0];
+//       const firstUserDocSnapshot = snapshots[1];
+
+//       if (bookingDocSnapshot.exists && firstUserDocSnapshot.exists) {
+//         const bookingData = bookingDocSnapshot.data();
+//         const userData = firstUserDocSnapshot.data();
+
+//         // Log the booking data and user data here
+//         console.log("Booking Data:", bookingData);
+//         console.log("User Data:", userData);
+
+
+// // Convert Firestore timestamp to JavaScript Date object
+// const timestamp = bookingData.dateTime.toDate();
+
+// // Format the date
+// const options = {
+//   weekday: 'long',
+//   year: 'numeric',
+//   month: 'long',
+//   day: 'numeric',
+//   hour: 'numeric',
+//   minute: 'numeric',
+//   second: 'numeric',
+//   hour12: true
+// };
+
+// const formattedDate = new Intl.DateTimeFormat('en-US', options).format(timestamp);
+
+//  // Get server's timestamp when the data is written
+//  const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp();
+
+
+//         const combinedData = {
+//           driverName: String(userData.name),
+//           driverPlateNumber: String(userData.plateNumber),
+//           dropOffPoint: String(bookingData.dropOffPoint),
+//           pickupPoint: String(bookingData.pickupPoint),
+//           requestBy: String(bookingData.userName),
+//           requestByContactNumber: String(bookingData.userContactNumber),
+//           // successful: String(bookingData.successful),
+//           // timeAccepted: String(bookingData.timeAccepted),
+//           // timeRequested: String(bookingData.dateTime)
+//           timeRequested: formattedDate,
+//           //paganahin mo muna yung accepted date para gumana yung sa app
+//           timeAccepted: serverTimestamp // Save the server's timestamp
+//         };
+
+//         return acceptedRequestRef.set(combinedData);
+//       } else {
+//         console.error("Booking document or user document does not exist.");
+//         throw new Error("Booking document or user document does not exist.");
+//       }
+//     })
+//     .then(() => {
+//       console.log("User data moved to acceptedRequest collection.");
+//       return Promise.all([bookingDocRef.delete(), firstUserDocRef.delete()]);
+//     })
+//     .then(() => {
+//       console.log("Booking document and user document successfully deleted.");
+//     })
+//     .catch((error) => {
+//       console.error("Error:", error);
+//     });
+// } else {
+//   console.log("Deletion cancelled by user.");
+// }
+
+// } else {
+//        console.log('Bad');
+
+//             // Get the modal
+//             const modal = document.getElementById("kioskmyModal");
+
+//             // When the bad condition happens, display the modal
+//             console.log('Bad');
+//             modal.style.display = "block";
+
+//             // When the user clicks on <span> (x), close the modal
+//             const span = document.getElementsByClassName("kioskclose")[0];
+//             span.onclick = function() {
+//               modal.style.display = "none";
+//             }
+
+
+//      }
+//    }
+
+//di na builtin confirmation
 function handleQRCodeData(qrCodeData) {
   // Implement your logic to handle the QR code data here
   // For example, you can parse the data and perform specific actions based on its content
   console.log('Handling QR code data:', qrCodeData);
-
-
-
 
   if (typeof qrCodeData === 'string') {
     try {
@@ -538,287 +679,112 @@ function handleQRCodeData(qrCodeData) {
   // Compare the name and plateNumber fields
   if (qrCodeName === userName && qrCodePlateNumber === userPlateNumber) {
     console.log('Good');
-    
 
+    // Display the modal for confirmation
+    const modal = document.getElementById("scanmodalContainer");
+    modal.style.display = "block";
 
-//eto naman ililipta sa ibang collection after madelete
-    // Ask for confirmation before deleting
-//     const isConfirmed = confirm("Are you sure you want to delete this booking?");
-//     if (isConfirmed) {
-//       // Get a reference to the booking document
-//       const bookingDocRef = firebase.firestore().collection("BookNow").doc(bookingDocId);
+    // Set the data in the modal
+    const modalData = document.getElementById("scanmodalData");
+    modalData.innerHTML = "Are you sure you want to accept this booking?";
 
-//       // Retrieve all the data from the booking document
-//       bookingDocRef.get()
-//         .then((docSnapshot) => {
-//           if (docSnapshot.exists) {
-//             // Save the data into the acceptedRequest collection
-//             const acceptedRequestRef = firebase.firestore().collection("acceptedRequest").doc(bookingDocId);
-//             return acceptedRequestRef.set(docSnapshot.data()); // Save all the data
-//           } else {
-//             console.error("Booking document does not exist.");
-//             throw new Error("Booking document does not exist.");
-//           }
-//         })
-//         .then(() => {
-//           console.log("Booking data saved in acceptedRequest collection.");
-          
-//           // Delete the booking document from the BookNow collection
-//           return bookingDocRef.delete();
-//         })
-//         .then(() => {
-//           console.log("Booking document successfully deleted.");
+    // When the user clicks on Yes button, proceed with the deletion
+    const yesButton = document.getElementById("confirmYes");
+    yesButton.onclick = function() {
+      modal.style.display = "none"; // Close the modal
+      closeModala();
+      const bookingDocRef = firebase.firestore().collection("BookNow").doc(bookingDocId);
+      const firstUserDocRef = firebase.firestore().collection("ActiveUsers").doc(firstUser.id);
+      const acceptedRequestRef = firebase.firestore().collection("acceptedRequest").doc(bookingDocId);
 
+      Promise.all([bookingDocRef.get(), firstUserDocRef.get()])
+        .then((snapshots) => {
+          const bookingDocSnapshot = snapshots[0];
+          const firstUserDocSnapshot = snapshots[1];
 
-          
+          if (bookingDocSnapshot.exists && firstUserDocSnapshot.exists) {
+            const bookingData = bookingDocSnapshot.data();
+            const userData = firstUserDocSnapshot.data();
 
-//           const activeUsersCollection = firebase.firestore().collection("ActiveUsers");
+            // Log the booking data and user data here
+            console.log("Booking Data:", bookingData);
+            console.log("User Data:", userData);
 
-//           // Retrieve data from ActiveUsers collection
-//           return activeUsersCollection.doc(firstUser.id).get();
-//         })
-//         .then((docSnapshot) => {
-//           if (docSnapshot.exists) {
-//             // Save the data into the acceptedRequest collection
-//             const acceptedRequestRef = firebase.firestore().collection("acceptedRequest").doc(firstUser.id);
-//             return acceptedRequestRef.set(docSnapshot.data()); // Save all the data
-//           } else {
-//             console.error("User document does not exist.");
-//             throw new Error("User document does not exist.");
-//           }
-//         })
-//         .then(() => {
-//           console.log("User data saved in acceptedRequest collection.");
-  
-//           // Delete the user document from the ActiveUsers collection
-//           return activeUsersCollection.doc(firstUser.id).delete();
-//         })
-//         .then(() => {
-//           console.log("User document successfully deleted from ActiveUsers collection.");
-        
+            // Convert Firestore timestamp to JavaScript Date object
+            const timestamp = bookingData.dateTime.toDate();
 
+            // Format the date
+            const options = {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+              second: 'numeric',
+              hour12: true
+            };
 
-//         })
+            const formattedDate = new Intl.DateTimeFormat('en-US', options).format(timestamp);
 
+            // Get server's timestamp when the data is written
+            const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp();
 
+            const combinedData = {
+              driverName: String(userData.name),
+              driverPlateNumber: String(userData.plateNumber),
+              dropOffPoint: String(bookingData.dropOffPoint),
+              pickupPoint: String(bookingData.pickupPoint),
+              requestBy: String(bookingData.userName),
+              requestByContactNumber: String(bookingData.userContactNumber),
+              timeRequested: formattedDate,
+              timeAccepted: serverTimestamp // Save the server's timestamp
+            };
 
+            return acceptedRequestRef.set(combinedData);
+          } else {
+            console.error("Booking document or user document does not exist.");
+            throw new Error("Booking document or user document does not exist.");
+          }
+        })
+        .then(() => {
+          console.log("User data moved to acceptedRequest collection.");
+          return Promise.all([bookingDocRef.delete(), firstUserDocRef.delete()]);
+        })
+        .then(() => {
+          console.log("Booking document and user document successfully deleted.");
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    };
 
-        
-//         .catch((error) => {
-//           console.error("Error:", error);
-//         });
-//     } else {
-//       console.log("Deletion cancelled by user.");
-//     }
+    // When the user clicks on No button, cancel the deletion
+    const noButton = document.getElementById("confirmNo");
+    noButton.onclick = function() {
+      console.log("Deletion cancelled by user.");
+      modal.style.display = "none";
+    };
+  } else {
+    console.log('Bad');
 
-//   } else {
-//     console.log('Bad');
-//   }
-// }
+    // Get the modal
+    const modal = document.getElementById("kioskmyModal");
 
+    // When the bad condition happens, display the modal
+    modal.style.display = "block";
 
-
-// const isConfirmed = confirm("Are you sure you want to delete this booking?");
-// if (isConfirmed) {
-//   // Get references to booking document and first user document
-//   const bookingDocRef = firebase.firestore().collection("BookNow").doc(bookingDocId);
-//   const firstUserDocRef = firebase.firestore().collection("ActiveUsers").doc(firstUser.id);
-//   const acceptedRequestRef = firebase.firestore().collection("acceptedRequest").doc(bookingDocId);
-
-//   // Retrieve data from both documents simultaneously
-//   Promise.all([bookingDocRef.get(), firstUserDocRef.get()])
-//     .then((snapshots) => {
-//       const bookingDocSnapshot = snapshots[0];
-//       const firstUserDocSnapshot = snapshots[1];
-
-//       if (bookingDocSnapshot.exists && firstUserDocSnapshot.exists) {
-//         // Save the data of the first user into the acceptedRequest collection
-//         return acceptedRequestRef.set({
-//           ...bookingDocSnapshot.data(),
-//           userData: firstUserDocSnapshot.data()
-//         });
-//       } else {
-//         console.error("Booking document or user document does not exist.");
-//         throw new Error("Booking document or user document does not exist.");
-//       }
-//     })
-//     .then(() => {
-//       console.log("User data moved to acceptedRequest collection.");
-
-//       // Delete the booking document and the user document
-//       return Promise.all([bookingDocRef.delete(), firstUserDocRef.delete()]);
-//     })
-//     .then(() => {
-//       console.log("Booking document and user document successfully deleted.");
-//     })
-//     .catch((error) => {
-//       console.error("Error:", error);
-//     });
-// } else {
-//   console.log("Deletion cancelled by user.");
-// }
-
-//woking below
-// const isConfirmed = confirm("Are you sure you want to delete this booking?");
-// if (isConfirmed) {
-//   const bookingDocRef = firebase.firestore().collection("BookNow").doc(bookingDocId);
-//   const firstUserDocRef = firebase.firestore().collection("ActiveUsers").doc(firstUser.id);
-//   const acceptedRequestRef = firebase.firestore().collection("acceptedRequest").doc(bookingDocId);
-
-//   Promise.all([bookingDocRef.get(), firstUserDocRef.get()])
-//     .then((snapshots) => {
-//       const bookingDocSnapshot = snapshots[0];
-//       const firstUserDocSnapshot = snapshots[1];
-
-//       console.log("Booking Data:", bookingData);
-// console.log("User Data:", userData);
-
-//       if (bookingDocSnapshot.exists && firstUserDocSnapshot.exists) {
-//         const bookingData = bookingDocSnapshot.data();
-//         const userData = firstUserDocSnapshot.data();
-//         const combinedData = {
-//           driverName: String(userData.userName),
-//           driverPlateNumber: String(bookingData.plateNumber),
-//           dropOffPoint: String(bookingData.dropOffPoint),
-//           pickupPoint: String(bookingData.pickupPoint),
-//           requestBy: String(bookingData.userName),
-//           requestByContactNumber: String(bookingData.userContactNumber),
-//           successful: String(bookingData.successful),
-//           // timeAccepted: String(bookingData.timeAccepted),
-//           // timeRequested: String(bookingData.dateTime)
-//         };
-
-//         return acceptedRequestRef.set(combinedData);
-//       } else {
-//         console.error("Booking document or user document does not exist.");
-//         throw new Error("Booking document or user document does not exist.");
-//       }
-//     })
-//     .then(() => {
-//       console.log("User data moved to acceptedRequest collection.");
-//       return Promise.all([bookingDocRef.delete(), firstUserDocRef.delete()]);
-//     })
-//     .then(() => {
-//       console.log("Booking document and user document successfully deleted.");
-//     })
-//     .catch((error) => {
-//       console.error("Error:", error);
-//     });
-// } else {
-//   console.log("Deletion cancelled by user.");
-// }
-
-
-
-
-// } else {
-//        console.log('Bad');
-//      }
-//    }
-
-
-
-
-
-const isConfirmed = confirm("Are you sure you want to delete this booking?");
-if (isConfirmed) {
-  closeModal();
-  const bookingDocRef = firebase.firestore().collection("BookNow").doc(bookingDocId);
-  const firstUserDocRef = firebase.firestore().collection("ActiveUsers").doc(firstUser.id);
-  const acceptedRequestRef = firebase.firestore().collection("acceptedRequest").doc(bookingDocId);
-
-  Promise.all([bookingDocRef.get(), firstUserDocRef.get()])
-    .then((snapshots) => {
-      const bookingDocSnapshot = snapshots[0];
-      const firstUserDocSnapshot = snapshots[1];
-
-      if (bookingDocSnapshot.exists && firstUserDocSnapshot.exists) {
-        const bookingData = bookingDocSnapshot.data();
-        const userData = firstUserDocSnapshot.data();
-
-        // Log the booking data and user data here
-        console.log("Booking Data:", bookingData);
-        console.log("User Data:", userData);
-
-
-// Convert Firestore timestamp to JavaScript Date object
-const timestamp = bookingData.dateTime.toDate();
-
-// Format the date
-const options = {
-  weekday: 'long',
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  hour: 'numeric',
-  minute: 'numeric',
-  second: 'numeric',
-  hour12: true
-};
-
-const formattedDate = new Intl.DateTimeFormat('en-US', options).format(timestamp);
-
- // Get server's timestamp when the data is written
- const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp();
-
-
-        const combinedData = {
-          driverName: String(userData.name),
-          driverPlateNumber: String(userData.plateNumber),
-          dropOffPoint: String(bookingData.dropOffPoint),
-          pickupPoint: String(bookingData.pickupPoint),
-          requestBy: String(bookingData.userName),
-          requestByContactNumber: String(bookingData.userContactNumber),
-          // successful: String(bookingData.successful),
-          // timeAccepted: String(bookingData.timeAccepted),
-          // timeRequested: String(bookingData.dateTime)
-          timeRequested: formattedDate,
-          //paganahin mo muna yung accepted date para gumana yung sa app
-          timeAccepted: serverTimestamp // Save the server's timestamp
-        };
-
-        return acceptedRequestRef.set(combinedData);
-      } else {
-        console.error("Booking document or user document does not exist.");
-        throw new Error("Booking document or user document does not exist.");
-      }
-    })
-    .then(() => {
-      console.log("User data moved to acceptedRequest collection.");
-      return Promise.all([bookingDocRef.delete(), firstUserDocRef.delete()]);
-    })
-    .then(() => {
-      console.log("Booking document and user document successfully deleted.");
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-} else {
-  console.log("Deletion cancelled by user.");
+    // When the user clicks on <span> (x), close the modal
+    const span = document.getElementsByClassName("kioskclose")[0];
+    span.onclick = function() {
+      modal.style.display = "none";
+    };
+  }
 }
 
-} else {
-       console.log('Bad');
-
-            // Get the modal
-            const modal = document.getElementById("kioskmyModal");
-
-            // When the bad condition happens, display the modal
-            console.log('Bad');
-            modal.style.display = "block";
-
-            // When the user clicks on <span> (x), close the modal
-            const span = document.getElementsByClassName("kioskclose")[0];
-            span.onclick = function() {
-              modal.style.display = "none";
-            }
 
 
-     }
-   }
-
-
-
+//end
   
 
 
@@ -1278,23 +1244,37 @@ function displayHistoryModal(historyData) {
 
   // Format the timestamp fields for better readability
   const formattedRideEnded = rideEnded ? new Date(rideEnded.toDate()).toLocaleString() : '';
-  const formattedTimeAccepted = timeAccepted ? new Date(timeAccepted.toDate()).toLocaleString() : '';
-  const formattedTimeRequested = timeRequested ? timeRequested : '';
+  // const formattedTimeAccepted = timeAccepted ? new Date(timeAccepted.toDate()).toLocaleString() : '';
+  // const formattedTimeRequested = timeRequested ? timeRequested : '';
 
   // Update the content of the modal with the history details
   const modalDataDiv = document.getElementById('modalData');
   modalDataDiv.innerHTML = `
-    <p class="ride-detail"> Ride Details: </p>
-    <p>Driver Name: ${driverName}</p>
-    <p>Driver Plate Number: ${driverPlateNumber}</p>
-    <p>Pickup Point: ${pickupPoint}</p>
-    <p>Drop-off Point: ${dropOffPoint}</p>
-   
-    
-    <p>Ride Ended: ${formattedRideEnded}</p>
+  <div id="modalhistory">
+  <p class="ride-detail"> History Ride Details: </p>
+  <p>Driver Name: ${driverName}</p>
+  <p>Driver Plate Number: ${driverPlateNumber}</p>
+  <p>Pickup Point: ${pickupPoint}</p>
+  <p>Drop-off Point: ${dropOffPoint}</p>
+  <p>Ride Ended: ${formattedRideEnded}</p>
+</div>
+
     
     <!-- Add more details here as needed -->
   `;
+
+//eto working:
+{/* <p class="ride-detail"> Ride Details: </p>
+<p>Driver Name: ${driverName}</p>
+<p>Driver Plate Number: ${driverPlateNumber}</p>
+<p>Pickup Point: ${pickupPoint}</p>
+<p>Drop-off Point: ${dropOffPoint}</p>
+
+
+<p>Ride Ended: ${formattedRideEnded}</p> */}
+//end here
+
+
 
   //<p>Contact Number: ${requestByContactNumber}</p>
   //<p>Time Accepted: ${formattedTimeAccepted}</p>
@@ -1850,6 +1830,8 @@ function displayError(errorMessage) {
 
   message.textContent = errorMessage;
   modal.style.display = "block";
+  stopCamera();
+
 
   // Close the modal when the close button or anywhere outside the modal is clicked
   window.onclick = function(event) {
@@ -1865,8 +1847,109 @@ function displayError(errorMessage) {
 }
 
 
-
+//working 3-11-24 naka built in confirmation lang
 //di makakapag queue yung driver hangggat di pa succesful yung status niya :)
+// function checkDataInDriversCollection(name, plateNumber) {
+//   const driversCollection = firebase.firestore().collection("Drivers");
+//   const activeUsersCollection = firebase.firestore().collection("ActiveUsers");
+//   const acceptedRequestCollection = firebase.firestore().collection("acceptedRequest");
+
+//   // Query the "acceptedRequest" collection for documents based on driver's name
+//   acceptedRequestCollection.where("driverName", "==", name)
+//     .get()
+//     .then((querySnapshot) => {
+//       let allDocumentsSuccessful = true; // Variable to track if all documents have status true
+
+//       querySnapshot.forEach(doc => {
+//         const status = doc.data().successful;
+//         console.log(`Status for document ${doc.id}: ${status}`);
+//         if (status !== true) {
+//           allDocumentsSuccessful = false;
+//         }
+//       });
+
+//       // Proceed only if all documents have status true
+//       if (allDocumentsSuccessful) {
+//         // Query the "Drivers" collection for documents with matching name and plateNumber
+//         driversCollection.where("name", "==", name).where("plateNumber", "==", plateNumber)
+//           .get()
+//           .then((querySnapshot) => {
+//             if (!querySnapshot.empty) {
+//               // If documents exist, log "verified"
+//               console.log("verified");
+
+//               // Extract the data from the first matching document
+//               const driverData = querySnapshot.docs[0].data();
+
+//               // Check if the driver's data is already in the registeredUsers array
+//               const isRegistered = registeredUsers.some(user => user.name === driverData.name && user.plateNumber === driverData.plateNumber);
+
+//               if (!isRegistered) {
+//                 // Save the driver's data to the ActiveUsers collection
+//                 activeUsersCollection.add({
+//                   name: driverData.name,
+//                   plateNumber: driverData.plateNumber,
+//                   registrationDateTime: new Date() // You can set the registration date/time here
+//                 })
+//                 .then((docRef) => {
+//                   console.log("Driver data saved to ActiveUsers collection with ID: ", docRef.id);
+
+//                   // Stop the camera stream once the data is saved
+//                   stopCamera();
+//                 })
+//                 .catch((error) => {
+//                   console.error("Error adding driver data to ActiveUsers collection: ", error);
+//                 });
+
+//                 // Add the verified data to the queuing lists
+//                 addToQueuingLists(driverData.name, driverData.plateNumber);
+//               } else {
+//                 console.log("Driver is already registered.");
+//                 // Ask for confirmation before removing the data
+//                 const confirmed = window.confirm("Driver is already registered. Do you want to remove the entry from the queuing list?");
+//                 if (confirmed) {
+//                   // Remove the data directly from the ActiveUsers collection
+//                   stopCamera();
+//                   activeUsersCollection.where("name", "==", name).where("plateNumber", "==", plateNumber)
+//                     .get()
+//                     .then(querySnapshot => {
+//                       querySnapshot.forEach(doc => {
+//                         doc.ref.delete().then(() => {
+//                           console.log("Data removed from ActiveUsers collection");
+//                         }).catch(error => {
+//                           console.error("Error removing data from ActiveUsers collection:", error);
+//                         });
+//                       });
+//                     })
+//                     .catch(error => {
+//                       console.error("Error querying ActiveUsers collection:", error);
+//                     });
+//                   // stopCamera();
+//                 }
+//                 stopCamera();
+//               }
+//             } else {
+//               // If no matching documents found, log "not verified"
+//               console.log("not verified");
+//               // stopCamera();
+//             }
+//           })
+//           .catch((error) => {
+//             console.error("Error checking data in Drivers collection:", error);
+//           });
+//       } else {
+//         console.log("Cannot add to queuing list: Not all documents have status true.");
+//         // alert("Error: Ongoing ride");
+//         displayError("You can't queue until you finish your current trip");
+//       }
+//     })
+//     .catch((error) => {
+//       console.error("Error fetching documents from acceptedRequest collection:", error);
+//     });
+// }
+
+//same sa taas pero di na built in confirmation
+
 function checkDataInDriversCollection(name, plateNumber) {
   const driversCollection = firebase.firestore().collection("Drivers");
   const activeUsersCollection = firebase.firestore().collection("ActiveUsers");
@@ -1923,28 +2006,9 @@ function checkDataInDriversCollection(name, plateNumber) {
                 addToQueuingLists(driverData.name, driverData.plateNumber);
               } else {
                 console.log("Driver is already registered.");
-                // Ask for confirmation before removing the data
-                const confirmed = window.confirm("Driver is already registered. Do you want to remove the entry from the queuing list?");
-                if (confirmed) {
-                  // Remove the data directly from the ActiveUsers collection
-                  stopCamera();
-                  activeUsersCollection.where("name", "==", name).where("plateNumber", "==", plateNumber)
-                    .get()
-                    .then(querySnapshot => {
-                      querySnapshot.forEach(doc => {
-                        doc.ref.delete().then(() => {
-                          console.log("Data removed from ActiveUsers collection");
-                        }).catch(error => {
-                          console.error("Error removing data from ActiveUsers collection:", error);
-                        });
-                      });
-                    })
-                    .catch(error => {
-                      console.error("Error querying ActiveUsers collection:", error);
-                    });
-                  // stopCamera();
-                }
-                stopCamera();
+
+                // Show modal for confirmation
+                openRemoveModal("Remove your queue?", name, plateNumber);
               }
             } else {
               // If no matching documents found, log "not verified"
@@ -1965,6 +2029,49 @@ function checkDataInDriversCollection(name, plateNumber) {
       console.error("Error fetching documents from acceptedRequest collection:", error);
     });
 }
+
+function openRemoveModal(message, name, plateNumber) {
+  const modalContainer = document.getElementById("removemodalContainer");
+  const modalData = document.getElementById("removemodalData");
+  modalData.innerHTML = message;
+  modalContainer.style.display = "block";
+
+  // Store name and plateNumber to be used in confirmAction
+  modalContainer.dataset.name = name;
+  modalContainer.dataset.plateNumber = plateNumber;
+}
+
+function confirmAction() {
+  const name = document.getElementById("removemodalContainer").dataset.name;
+  const plateNumber = document.getElementById("removemodalContainer").dataset.plateNumber;
+  
+  // Remove the data directly from the ActiveUsers collection
+  activeUsersCollection.where("name", "==", name).where("plateNumber", "==", plateNumber)
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        doc.ref.delete().then(() => {
+          console.log("Data removed from ActiveUsers collection");
+        }).catch(error => {
+          console.error("Error removing data from ActiveUsers collection:", error);
+        });
+      });
+    })
+    .catch(error => {
+      console.error("Error querying ActiveUsers collection:", error);
+    });
+  // Close the modal after confirming
+  closeModal();
+  // Stop the camera stream once the data is removed
+  stopCamera();
+}
+
+function closeModal() {
+  const modalContainer = document.getElementById("removemodalContainer");
+  modalContainer.style.display = "none";
+}
+
+
 
 
 

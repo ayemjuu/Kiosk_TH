@@ -281,12 +281,15 @@ border-radius: 5px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px;
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
+  padding-top: 60px;
+
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  height: 400px;
-  width: 600px;
+  height: 500px;
+  width: 800px;
+  
 }
 
 
@@ -316,14 +319,14 @@ left: 30px;
 
 
 .modal-content {
-  background-color: #fff;
+  background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%; /* Ensure the content takes the full height */
+  height: 90%; /* Ensure the content takes the full height */
   
 }
 
@@ -409,7 +412,7 @@ margin-top: 100px;
   position: absolute;
   top: 10px;
   left: 10px;
-  background-color: gray;
+  /* background-color: gray; */
   width: 192px; /* Adjust width as needed */
   height: 145px;
   display: flex;
@@ -425,7 +428,7 @@ margin-top: 100px;
   text-align: center; */
   width: 190px; /* Adjust width as needed */
   height: 142px; /* Adjust height as needed */
-  border: 2px solid black;
+  /* border: 2px solid black; */
 }
 #video {
   width: 100%;
@@ -859,3 +862,102 @@ margin-top: 100px;
   color: red;
  padding-top: 40px;
 }
+
+
+#modalhistory {
+  /* background-color: #93d4ff; */
+  margin-right: 200px;
+  margin-bottom: 60px;
+}
+
+
+
+#removemodalContainer {
+  background-color: white;
+  height: 30%;
+  width: 50%;
+  text-align: center;
+
+
+}
+
+.removemodal-content {
+  font-size: 30px;
+  text-align: center;
+ margin-top: 50px;
+
+}
+
+#removemodalData {
+  margin-bottom: 40px;
+}
+
+.confirmButton, .cancelButton {
+  background-color: #ffd702;
+border-width: 0;
+border-radius: 5px;
+height:50px;
+width: 100px;
+font-size: 20px;
+
+
+}
+
+
+.confirmButton {
+
+
+margin-right: 20px;
+
+}
+
+
+
+
+#scanmodalData {
+  /* background-color: #333; */
+  font-size: 30px;
+}
+
+
+
+#confirmYes, #confirmNo {
+  background-color: #ffd702;
+border-width: 0;
+border-radius: 5px;
+height:50px;
+width: 100px;
+font-size: 20px;
+
+
+}
+
+
+#confirmYes {
+
+
+  margin-right: 20px;
+  
+  }
+
+  #scanmodalContainer {
+    background-color: white;
+    height: 30%;
+    width: 50%;
+    text-align: center;
+  }
+
+
+  #scanmodalData {
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+  
+
+
+  #errorMessage {
+    font-size: 20px;
+    text-align: center;
+    margin-top: 27px;
+  }
+

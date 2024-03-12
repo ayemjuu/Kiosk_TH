@@ -6,6 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TodaHero</title>
+  <link rel="icon" href="image/logo.png" type="image/png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -17,7 +18,7 @@
 <!-- Modal -->
 <div id="errorModal" class="errorModal">
   <div class="errormodal-content">
-    <span class="errorclose">&times;</span>
+    <!-- <span class="errorclose">&times;</span> -->
     <p id="errorMessage"></p>
   </div>
 </div>
@@ -95,7 +96,7 @@
 
 
 
-    <div class="cameraa">CAMERA</div>
+    <div class="cameraa"></div>
     <!-- <button id="fullscreenBtn">
       <img src="image/fullscreen.png" alt="Image" style="width: 20px; height: 20px;">
 
@@ -119,11 +120,34 @@
        <!-- Modal Container -->
       <div id="modalContainer" class="modal">
         <div class="modal-content">
-          <span class="close" onclick="closeModal()">&times;</span>
+          <span class="close" onclick="closeModala()">&times;</span>
           <div id="modalData"></div>
         </div>
       </div>
 
+
+      <div id="removemodalContainer" class="modal">
+        <div class="removemodal-content">
+          <!-- <span class="removeclose" onclick="closeModal()">&times;</span> -->
+          <div id="removemodalData"></div>
+          <button onclick="confirmAction()" class="confirmButton">Confirm</button>
+          <button onclick="closeModal(); stopCamera();" class="cancelButton">Cancel</button>
+        </div>
+      </div>
+      
+      
+
+      <div id="scanmodalContainer" class="modal">
+        <div class="scanmodal-content">
+          <!-- <span class="cscanlose" onclick="closeModala()">&times;</span> -->
+          <div id="scanmodalData">Are you sure you want to delete this booking?</div>
+          <div class="modal-buttons">
+            <button onclick="closeModala()" id="confirmYes">Yes</button>
+            <button id="confirmNo">No</button>
+          </div>
+        </div>
+      </div>
+      
 
    
 
