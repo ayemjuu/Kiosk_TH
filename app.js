@@ -51,7 +51,7 @@ const registeredUsers = [];
 function updateDateTime() {
   const datetimeContainer = document.getElementById('datetimeContainer');
   const currentDate = new Date();
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
   const formattedDateTime = currentDate.toLocaleDateString('en-US', options);
   datetimeContainer.textContent = formattedDateTime;
 }
@@ -391,13 +391,13 @@ function handlePlateNumberClick(bookingData, userName, bookingDocId) {
 
   // Format date and time
   const formattedDateTime = dateObject.toLocaleString('en-US', {
-    weekday: 'long',
+  
     year: 'numeric',
-    month: 'long',
+    month: 'short',
     day: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
-    second: 'numeric',
+  
     // timeZoneName: 'short'
   });
 
@@ -427,8 +427,8 @@ scanButton.addEventListener('click', () => {
       const videoElement = document.createElement('video');
       videoElement.srcObject = stream;
       videoElement.autoplay = true;
-      videoElement.width = 190; // Set the width of the video element
-      videoElement.height = 145; // Set the height of the video element
+      videoElement.width = 210; // Set the width of the video element
+      videoElement.height = 165; // Set the height of the video element
       // Apply CSS styles for absolute positioning to center the video element
       videoElement.style.position = 'absolute';
       videoElement.style.top = '0px';
@@ -783,6 +783,139 @@ function handleQRCodeData(qrCodeData) {
 }
 
 
+//testing 3-18-24
+// function handleQRCodeData(qrCodeData) {
+//   console.log('Handling QR code data:', qrCodeData);
+
+//   if (typeof qrCodeData === 'string') {
+//     try {
+//       qrCodeData = JSON.parse(qrCodeData);
+//     } catch (error) {
+//       console.error('Error parsing QR code data:', error);
+//       return;
+//     }
+//   }
+//   if (!registeredUsers.length) {
+//     console.error('No users on the line.');
+//     return;
+//   }
+
+//   // Log the first user's data for debugging
+//   console.log('First user data:', registeredUsers[0]);
+
+//   // Extract name and plateNumber fields from qrCodeData
+//   const qrCodeName = qrCodeData.name;
+//   const qrCodePlateNumber = qrCodeData.plateNumber;
+
+//   // Extract name and plateNumber fields from firstUser data
+//   const userName = firstUser.data().name;
+//   const userPlateNumber = firstUser.data().plateNumber;
+
+//   // Compare the name and plateNumber fields
+//   if (qrCodeName === userName && qrCodePlateNumber === userPlateNumber) {
+//     console.log('Good');
+
+//     // Display the modal for confirmation
+//     const modal = document.getElementById("scanmodalContainer");
+//     modal.style.display = "block";
+
+//     // Set the data in the modal
+//     const modalData = document.getElementById("scanmodalData");
+//     modalData.innerHTML = "Are you sure you want to accept this booking?";
+
+//     // When the user clicks on Yes button, proceed with the deletion
+//     const yesButton = document.getElementById("confirmYes");
+//     yesButton.onclick = function() {
+//       modal.style.display = "none"; // Close the modal
+//       closeModala();
+//       const bookingDocRef = firebase.firestore().collection("BookNow").doc(bookingDocId);
+//       const firstUserDocRef = firebase.firestore().collection("ActiveUsers").doc(firstUser.id);
+//       const acceptedRequestRef = firebase.firestore().collection("acceptedRequest").doc(bookingDocId);
+
+//       Promise.all([bookingDocRef.get(), firstUserDocRef.get()])
+//         .then((snapshots) => {
+//           const bookingDocSnapshot = snapshots[0];
+//           const firstUserDocSnapshot = snapshots[1];
+
+//           if (bookingDocSnapshot.exists && firstUserDocSnapshot.exists) {
+//             const bookingData = bookingDocSnapshot.data();
+//             const userData = firstUserDocSnapshot.data();
+
+//             // Log the booking data and user data here
+//             console.log("Booking Data:", bookingData);
+//             console.log("User Data:", userData);
+
+//             // Convert Firestore timestamp to JavaScript Date object
+//             const timestamp = bookingData.dateTime.toDate();
+
+//             // Format the date
+//             const options = {
+//               weekday: 'long',
+//               year: 'numeric',
+//               month: 'long',
+//               day: 'numeric',
+//               hour: 'numeric',
+//               minute: 'numeric',
+//               second: 'numeric',
+//               hour12: true
+//             };
+
+//             const formattedDate = new Intl.DateTimeFormat('en-US', options).format(timestamp);
+
+//             // Get server's timestamp when the data is written
+//             const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp();
+
+//             const combinedData = {
+//               driverName: String(userData.name),
+//               driverPlateNumber: String(userData.plateNumber),
+//               dropOffPoint: String(bookingData.dropOffPoint),
+//               pickupPoint: String(bookingData.pickupPoint),
+//               requestBy: String(bookingData.userName),
+//               requestByContactNumber: String(bookingData.userContactNumber),
+//               timeRequested: formattedDate,
+//               timeAccepted: serverTimestamp // Save the server's timestamp
+//             };
+
+//             return acceptedRequestRef.set(combinedData);
+//           } else {
+//             console.error("Booking document or user document does not exist.");
+//             throw new Error("Booking document or user document does not exist.");
+//           }
+//         })
+//         .then(() => {
+//           console.log("User data moved to acceptedRequest collection.");
+//           return Promise.all([bookingDocRef.delete(), firstUserDocRef.delete()]);
+//         })
+//         .then(() => {
+//           console.log("Booking document and user document successfully deleted.");
+//         })
+//         .catch((error) => {
+//           console.error("Error:", error);
+//         });
+//     };
+
+//     // When the user clicks on No button, cancel the deletion
+//     const noButton = document.getElementById("confirmNo");
+//     noButton.onclick = function() {
+//       console.log("Deletion cancelled by user.");
+//       modal.style.display = "none";
+//     };
+//   } else {
+//     console.log('Bad');
+
+//     // Get the modal
+//     const modal = document.getElementById("kioskmyModal");
+
+//     // When the bad condition happens, display the modal
+//     modal.style.display = "block";
+
+//     // When the user clicks on <span> (x), close the modal
+//     const span = document.getElementsByClassName("kioskclose")[0];
+//     span.onclick = function() {
+//       modal.style.display = "none";
+//     };
+//   }
+// }
 
 //end
   
@@ -1185,7 +1318,159 @@ function listenForActiveUsersRealTimeUpdates() {
 listenForActiveUsersRealTimeUpdates();
 
 
+//gumagana den kaso database problema
+// function listenForActiveUsersRealTimeUpdates() {
+//   activeUsersCollection
+//     .orderBy("registrationDateTime", "asc")  // or "desc" for descending order
+//     .onSnapshot((querySnapshot) => {
+//       // Clear existing list
+//       const activeUsersList = document.getElementById('userList');
+//       activeUsersList.innerHTML = '';
+
+//       // Clear the registeredUsers array
+//       registeredUsers.length = 0;
+
+//       // Reference to the "Priority" collection
+//       const db = firebase.firestore();
+//       const priorityCollection = db.collection("Priority");
+
+//       // Fetch data from the "Priority" collection
+//       priorityCollection.get().then((prioritySnapshot) => {
+//         const priorityData = prioritySnapshot.docs.map(doc => doc.data());
+
+//         // Create an array to hold matched items
+//         const matchedItems = [];
+
+//         // Iterate through the documents in the "ActiveUsers" collection
+//         querySnapshot.forEach((doc) => {
+//           const userData = doc.data();
+//           const name = userData.name;
+//           const plateNumber = userData.plateNumber;
+
+//           // Check if there is a match in the Priority collection
+//           const match = priorityData.some(item => item.driverPlateNumber === plateNumber);
+
+//           // Update the UI or perform other actions with the real-time data
+//           const listItem = document.createElement('li');
+//           listItem.textContent = `Name: ${name}, Plate Number: ${plateNumber}`;
+
+//           // If there's a match, prepend the item to the list
+//           if (match) {
+//             activeUsersList.prepend(listItem);
+//             matchedItems.push({ name, plateNumber });
+//           } else {
+//             activeUsersList.appendChild(listItem);
+//           }
+
+//           // Update the registeredUsers array
+//           registeredUsers.push({ name, plateNumber });
+
+//           // Log if there's a match
+//           if (match) {
+//             console.log(`Match found for plate number ${plateNumber}`);
+//           } else {
+//             // console.log(`No match found for plate number ${plateNumber}`);
+//           }
+//         });
+
+//         // Move matched items to the top of the registered users array
+//         matchedItems.forEach(item => {
+//           const index = registeredUsers.findIndex(user => user.plateNumber === item.plateNumber);
+//           if (index !== -1) {
+//             registeredUsers.splice(index, 1);
+//             registeredUsers.unshift(item);
+//           }
+//         });
+
+//         // Update the UI with the latest data
+//         updateUI();
+//       }).catch(error => {
+//         console.error("Error fetching priority data:", error);
+//       });
+//     });
+// }
+
+// // Call the function to start listening for real-time updates in "ActiveUsers"
+// listenForActiveUsersRealTimeUpdates();
+
+
+
+//----------------------------------------------------
+//eto naman gumagana na yung sa priority  lists pero di gumagana sa db
+// function listenForActiveUsersRealTimeUpdates() {
+//   const activeUsersCollection = firebase.firestore().collection("ActiveUsers");
+//   const priorityCollection = firebase.firestore().collection("Priority");
+
+//   activeUsersCollection
+//     .orderBy("registrationDateTime", "asc")
+//     .onSnapshot((querySnapshot) => {
+//       const activeUsersList = document.getElementById('userList');
+//       activeUsersList.innerHTML = '';
+
+//       registeredUsers.length = 0;
+
+//       priorityCollection.get().then((prioritySnapshot) => {
+//         const priorityUsers = [];
+//         querySnapshot.forEach((doc) => {
+//           const userData = doc.data();
+//           const name = userData.name;
+//           const plateNumber = userData.plateNumber;
+
+//           const isPriority = prioritySnapshot.docs.some(priorityDoc => {
+//             const priorityData = priorityDoc.data();
+//             return priorityData.driverName === name && priorityData.driverPlateNumber === plateNumber;
+//           });
+
+//           if (isPriority) {
+//             // If user is priority, add to priority users list
+//             priorityUsers.push({ name, plateNumber });
+//           } else {
+//             // If not a priority user, add to regular list
+//             const listItem = document.createElement('li');
+//             listItem.textContent = `Name: ${name}, Plate Number: ${plateNumber}`;
+//             activeUsersList.appendChild(listItem);
+//             registeredUsers.push({ name, plateNumber });
+//           }
+//         });
+
+//         // Add priority users to the top of the list
+//         priorityUsers.forEach((priorityUser) => {
+//           const listItem = document.createElement('li');
+//           listItem.textContent = `Name: ${priorityUser.name}, Plate Number: ${priorityUser.plateNumber}`;
+//           activeUsersList.insertBefore(listItem, activeUsersList.firstChild);
+//           registeredUsers.unshift(priorityUser);
+//         });
+
+
+//     // Log who is first on the line
+//     if (registeredUsers.length > 0) {
+//       console.log(`First on the line: ${registeredUsers[0].name} with plate number ${registeredUsers[0].plateNumber}`);
+//     } else {
+//       console.log("No users on the line.");
+//     }
+
+
+//         // Update the UI with the latest data
+//         updateUI();
+//       }).catch((error) => {
+//         console.error("Error fetching priority users:", error);
+//       });
+//     });
+// }
+
+// // Call the function to start listening for real-time updates in "ActiveUsers"
+// listenForActiveUsersRealTimeUpdates();
+
+
+
+
+
+
+//HISTORY
+
 // Function to listen for real-time updates in the "history" collection for rides that ended today
+
+
 function listenForTodayHistoryRealTimeUpdates() {
   const historyCollection = firebase.firestore().collection("history");
   
@@ -1242,10 +1527,21 @@ function displayHistoryModal(historyData) {
     timeRequested
   } = historyData;
 
+  console.log("Time Requested:", timeRequested);
   // Format the timestamp fields for better readability
-  const formattedRideEnded = rideEnded ? new Date(rideEnded.toDate()).toLocaleString() : '';
+  // const formattedRideEnded = rideEnded ? new Date(rideEnded.toDate()).toLocaleString() : '';
+
+  const formattedTimeRequested = timeRequested ? timeRequested : '';
   // const formattedTimeAccepted = timeAccepted ? new Date(timeAccepted.toDate()).toLocaleString() : '';
-  // const formattedTimeRequested = timeRequested ? timeRequested : '';
+  const formattedTimeAccepted = timeAccepted instanceof Date ? timeAccepted.toLocaleString() : timeAccepted;
+  const formattedRideEnded = rideEnded ? formatDateTime(rideEnded.toDate()) : '';
+
+
+   // Function to format date and time
+   function formatDateTime(date) {
+    const options = { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' };
+    return new Intl.DateTimeFormat('en-US', options).format(date);
+  }
 
   // Update the content of the modal with the history details
   const modalDataDiv = document.getElementById('modalData');
@@ -1254,8 +1550,11 @@ function displayHistoryModal(historyData) {
   <p class="ride-detail"> History Ride Details: </p>
   <p>Driver Name: ${driverName}</p>
   <p>Driver Plate Number: ${driverPlateNumber}</p>
+  <p>Requested By: ${requestBy}</p>
   <p>Pickup Point: ${pickupPoint}</p>
   <p>Drop-off Point: ${dropOffPoint}</p>
+  <p>Time Requested: ${formattedTimeRequested}</p>
+  <p>Time Accepted: ${formattedTimeAccepted}</p>
   <p>Ride Ended: ${formattedRideEnded}</p>
 </div>
 
@@ -1950,10 +2249,92 @@ function displayError(errorMessage) {
 
 //same sa taas pero di na built in confirmation
 
+// function checkDataInDriversCollection(name, plateNumber) {
+//   const driversCollection = firebase.firestore().collection("Drivers");
+//   const activeUsersCollection = firebase.firestore().collection("ActiveUsers");
+//   const acceptedRequestCollection = firebase.firestore().collection("acceptedRequest");
+
+//   // Query the "acceptedRequest" collection for documents based on driver's name
+//   acceptedRequestCollection.where("driverName", "==", name)
+//     .get()
+//     .then((querySnapshot) => {
+//       let allDocumentsSuccessful = true; // Variable to track if all documents have status true
+
+//       querySnapshot.forEach(doc => {
+//         const status = doc.data().successful;
+//         console.log(`Status for document ${doc.id}: ${status}`);
+//         if (status !== true) {
+//           allDocumentsSuccessful = false;
+//         }
+//       });
+
+//       // Proceed only if all documents have status true
+//       if (allDocumentsSuccessful) {
+//         // Query the "Drivers" collection for documents with matching name and plateNumber
+//         driversCollection.where("name", "==", name).where("plateNumber", "==", plateNumber)
+//           .get()
+//           .then((querySnapshot) => {
+//             if (!querySnapshot.empty) {
+//               // If documents exist, log "verified"
+//               console.log("verified");
+
+//               // Extract the data from the first matching document
+//               const driverData = querySnapshot.docs[0].data();
+
+//               // Check if the driver's data is already in the registeredUsers array
+//               const isRegistered = registeredUsers.some(user => user.name === driverData.name && user.plateNumber === driverData.plateNumber);
+
+//               if (!isRegistered) {
+//                 // Save the driver's data to the ActiveUsers collection
+//                 activeUsersCollection.add({
+//                   name: driverData.name,
+//                   plateNumber: driverData.plateNumber,
+//                   registrationDateTime: new Date() // You can set the registration date/time here
+//                 })
+//                 .then((docRef) => {
+//                   console.log("Driver data saved to ActiveUsers collection with ID: ", docRef.id);
+
+//                   // Stop the camera stream once the data is saved
+//                   stopCamera();
+//                 })
+//                 .catch((error) => {
+//                   console.error("Error adding driver data to ActiveUsers collection: ", error);
+//                 });
+
+//                 // Add the verified data to the queuing lists
+//                 addToQueuingLists(driverData.name, driverData.plateNumber);
+//               } else {
+//                 console.log("Driver is already registered.");
+
+//                 // Show modal for confirmation
+//                 openRemoveModal("Remove your queue?", name, plateNumber);
+//               }
+//             } else {
+//               // If no matching documents found, log "not verified"
+//               console.log("not verified");
+//               // stopCamera();
+//             }
+//           })
+//           .catch((error) => {
+//             console.error("Error checking data in Drivers collection:", error);
+//           });
+//       } else {
+//         console.log("Cannot add to queuing list: Not all documents have status true.");
+//         // alert("Error: Ongoing ride");
+//         displayError("You can't queue until you finish your current trip");
+//       }
+//     })
+//     .catch((error) => {
+//       console.error("Error fetching documents from acceptedRequest collection:", error);
+//     });
+// }
+
+//working above 3-18-24
 function checkDataInDriversCollection(name, plateNumber) {
   const driversCollection = firebase.firestore().collection("Drivers");
   const activeUsersCollection = firebase.firestore().collection("ActiveUsers");
   const acceptedRequestCollection = firebase.firestore().collection("acceptedRequest");
+  const priorityCollection = firebase.firestore().collection("Priority"); // Add Priority collection
 
   // Query the "acceptedRequest" collection for documents based on driver's name
   acceptedRequestCollection.where("driverName", "==", name)
@@ -2019,6 +2400,20 @@ function checkDataInDriversCollection(name, plateNumber) {
           .catch((error) => {
             console.error("Error checking data in Drivers collection:", error);
           });
+
+          // Check if name matches driverName in Priority collection
+          priorityCollection.where("driverName", "==", name)
+            .get()
+            .then((querySnapshot) => {
+              if (!querySnapshot.empty) {
+                // console.log(`${name} is priority`);
+              } else {
+                console.log(`${name} is not priority`);
+              }
+            })
+            .catch((error) => {
+              console.error("Error fetching documents from Priority collection:", error);
+            });
       } else {
         console.log("Cannot add to queuing list: Not all documents have status true.");
         // alert("Error: Ongoing ride");
@@ -2109,7 +2504,7 @@ function fetchAndDisplayDrivers() {
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         const driverData = doc.data();
-        console.log("Driver:", driverData);
+        // console.log("Driver:", driverData);
       });
     })
     .catch((error) => {

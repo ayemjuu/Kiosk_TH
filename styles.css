@@ -422,7 +422,7 @@ margin-top: 100px;
 
 #video-container {
   position: absolute;
-  top: 10px;
+  top: 200px;
   left: 10px;
   /* width: 100%;
   text-align: center; */
@@ -858,8 +858,8 @@ margin-top: 100px;
 
 
 .kiosktext {
-  font-size: 20px;
-  color: red;
+  font-size: 25px;
+  color: rgb(0, 0, 0);
  padding-top: 40px;
 }
 
